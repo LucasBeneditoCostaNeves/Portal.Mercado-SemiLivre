@@ -9,7 +9,7 @@ export function StepIndicator({ currentStep = 1, totalSteps = 3 }: StepIndicator
       {Array.from({ length: totalSteps }, (_, i) => (
         <div
           key={i}
-          className={`h-1 flex-1 rounded-full transition-colors ${
+          className={`h-1 w-10 rounded-full transition-colors ${
             i < currentStep ? 'bg-[#FFE600]' : 'bg-zinc-700'
           }`}
         />
