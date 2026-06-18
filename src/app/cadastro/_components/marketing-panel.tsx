@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { FeatureIcon } from './feature-icon'
 
 type MarketingPanelProps = {
   step?: number
@@ -129,13 +130,3 @@ function Step3Content() {
   )
 }
 
-function FeatureIcon() {
-  return (
-    <div
-      className="w-8 h-8 rounded-full bg-[#1a1f6e] flex items-center justify-center shrink-0"
-      aria-hidden="true"
-    >
-      <div className="w-3.5 h-3.5 border-2 border-white rounded-sm" />
-    </div>
-  )
-}

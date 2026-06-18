@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
-import { LoginMarketingPanel } from '@/components/login/LoginMarketingPanel'
-import { LoginForm } from '@/components/login/LoginForm'
+import { LoginMarketingPanel } from './_components/login-marketing-panel'
+import { LoginForm } from './_components/login-form'
 
 export const metadata: Metadata = {
   title: 'Entrar | Mercado Livre',

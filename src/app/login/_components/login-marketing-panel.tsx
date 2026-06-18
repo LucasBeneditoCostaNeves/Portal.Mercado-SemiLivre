@@ -1,4 +1,4 @@
-import Image from "next/image"
+import Image from 'next/image'
 
 const STATS = [
   {
@@ -46,9 +46,9 @@ export function LoginMarketingPanel() {
 
       <div className="flex flex-col gap-6">
         <div>
-        <h2 className="xl:text-5xl font-bold text-gray-900 leading-tight mt-35">
-          Bem-vindo de volta!
-        </h2>
+          <h2 className="xl:text-5xl font-bold text-gray-900 leading-tight mt-35">
+            Bem-vindo de volta!
+          </h2>
           <p className="mt-3 text-[#3a3a5c] text-sm leading-relaxed max-w-xs">
             Entre na sua conta e continue aproveitando as melhores ofertas com frete grátis e entrega rápida.
           </p>

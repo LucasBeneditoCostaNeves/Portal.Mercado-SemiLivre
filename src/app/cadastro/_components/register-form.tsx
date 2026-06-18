@@ -6,7 +6,7 @@ import { registerWithEmail } from '../actions'
 import type { RegisterFormState } from '@/domain/auth/types'
 import { GoogleSignInButton } from './google-signin-button'
 import { Divider } from './divider'
-import { FormField } from './form-field'
+import { FormField } from '@/components/ui/form-field'
 import { SubmitButton } from './submit-button'
 import { MobileFeatureRow } from './mobile-feature-row'
 
@@ -21,7 +21,7 @@ export function RegisterForm({ onSuccess }: Props) {
 
   useEffect(() => {
     if (state.success) onSuccess()
-  }, [state.success]) // onSuccess é estável (useCallback no wizard)
+  }, [state.success, onSuccess])
 
   return (
     <form action={formAction} noValidate className="flex flex-col gap-4">

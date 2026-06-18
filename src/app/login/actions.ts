@@ -1,10 +1,7 @@
 'use server'
 
 import type { LoginFormState } from '@/domain/auth/types'
-
-function isValidEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-}
+import { isValidEmail } from '@/domain/auth/validators'
 
 export async function loginWithEmail(
   _prevState: LoginFormState,
