@@ -6,11 +6,11 @@ type MobileMarketingBannerProps = {
 
 export function MobileMarketingBanner({ step = 1 }: MobileMarketingBannerProps) {
   return (
-    <div className="bg-[#FFE600] px-6 pt-6 pb-8">
+    <div className="bg-[#FFE600] px-6 pt-0 pb-8">
       <Image
         src="/logo-vertical-mercado-semilivre.png"
         alt="Mercado Semilivre"
-        width={330}
+        width={220}
         height={100}
         priority
         style={{ height: 'auto' }}
