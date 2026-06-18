@@ -12,11 +12,11 @@ export function MarketingPanel() {
       <Image
           src="/logo-mercadoSemilivre.png"
           alt="Mercado Semilivre"
-          width={130}
+          width={260}
           height={87}
           priority
           style={{ height: 'auto' }}
-          className="absolute top-10 left-10 xl:top-14 xl:left-14 rounded-xl"
+          className="absolute top-10 left-10 xl:top-14 xl:left-0 rounded-xl"
         />
 
       {/* spacer que ocupa o lugar da imagem no fluxo flex */}

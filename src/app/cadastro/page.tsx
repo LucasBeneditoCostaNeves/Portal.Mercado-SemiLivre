@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function CadastroPage() {
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-[#FFE600]">
       <div className="lg:hidden">
         <MobileMarketingBanner />
       </div>

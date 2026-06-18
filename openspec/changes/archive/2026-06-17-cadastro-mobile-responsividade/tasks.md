@@ -16,6 +16,6 @@
 
 ## 4. Verificação
 
-- [ ] 4.1 Testar layout mobile (viewport < 1024px): banner aparece, card sobreposto, headings corretos, feature row visível
-- [ ] 4.2 Testar layout desktop (viewport ≥ 1024px): painel 50/50 inalterado, banner mobile oculto, feature row oculta
-- [ ] 4.3 Verificar sem overflow horizontal em ambos os breakpoints
+- [x] 4.1 Testar layout mobile (viewport < 1024px): banner aparece, card sobreposto, headings corretos, feature row visível
+- [x] 4.2 Testar layout desktop (viewport ≥ 1024px): painel 50/50 inalterado, banner mobile oculto, feature row oculta
+- [x] 4.3 Verificar sem overflow horizontal em ambos os breakpoints
