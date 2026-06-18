@@ -1,6 +1,6 @@
 'use client'
 
-import { useActionState } from 'react'
+import { useActionState, useEffect } from 'react'
 import Link from 'next/link'
 import { registerWithEmail } from '../actions'
 import type { RegisterFormState } from '@/domain/auth/types'
@@ -12,16 +12,16 @@ import { MobileFeatureRow } from './mobile-feature-row'
 
 const INITIAL_STATE: RegisterFormState = {}
 
-export function RegisterForm() {
+type Props = {
+  onSuccess: () => void
+}
+
+export function RegisterForm({ onSuccess }: Props) {
   const [state, formAction] = useActionState(registerWithEmail, INITIAL_STATE)
 
-  if (state.success) {
-    return (
-      <p role="status" className="text-center py-4 text-green-400 font-medium text-sm">
-        {state.message}
-      </p>
-    )
-  }
+  useEffect(() => {
+    if (state.success) onSuccess()
+  }, [state.success]) // onSuccess é estável (useCallback no wizard)
 
   return (
     <form action={formAction} noValidate className="flex flex-col gap-4">
