@@ -1,6 +1,6 @@
 'use server'
 
-import type { PersonalDataFormState, RegisterFormState } from '@/domain/auth/types'
+import type { PersonalDataFormState, PreferencesFormState, RegisterFormState } from '@/domain/auth/types'
 
 function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
@@ -128,5 +128,18 @@ export async function savePersonalData(
   if (Object.keys(errors).length > 0) return { errors }
 
   // TODO: persistir dados pessoais e avançar para passo 3
+  return { success: true }
+}
+
+export async function savePreferences(
+  _prevState: PreferencesFormState,
+  formData: FormData,
+): Promise<PreferencesFormState> {
+  const categories = formData.getAll('categories').map((v) => v.toString())
+  // accepts empty array (skip is valid)
+  if (!Array.isArray(categories)) {
+    return { errors: { categories: ['Formato inválido.'] } }
+  }
+  // TODO: persistir preferências
   return { success: true }
 }

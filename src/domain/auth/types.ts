@@ -23,3 +23,10 @@ export type PersonalDataFormState = {
   }
   success?: boolean
 }
+
+export type PreferencesFormState = {
+  success?: boolean
+  errors?: {
+    categories?: string[]
+  }
+}

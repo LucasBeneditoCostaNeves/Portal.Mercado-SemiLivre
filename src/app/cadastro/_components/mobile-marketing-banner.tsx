@@ -16,7 +16,16 @@ export function MobileMarketingBanner({ step = 1 }: MobileMarketingBannerProps) 
         style={{ height: 'auto' }}
         className="mb-1 -ml-8"
       />
-      {step === 2 ? (
+      {step === 3 ? (
+        <>
+          <h2 className="text-2xl font-bold text-[#1a1f6e] leading-snug mb-2 max-w-[270px]">
+            Quase lá!
+          </h2>
+          <p className="text-sm text-[#1a1f6e]">
+            Passo 3 de 3 — preferências
+          </p>
+        </>
+      ) : step === 2 ? (
         <>
           <h2 className="text-2xl font-bold text-[#1a1f6e] leading-snug mb-2 max-w-[270px]">
             Só mais alguns dados para proteger sua conta

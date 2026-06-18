@@ -25,10 +25,11 @@ export function MarketingPanel({ step = 1 }: MarketingPanelProps) {
 
       <div className="h-[40px]" />
 
-      {step === 2 ? <Step2Content /> : <Step1Content />}
+      {step === 3 ? <Step3Content /> : step === 2 ? <Step2Content /> : <Step1Content />}
 
       <p className="text-xs text-gray-500">
-        Passo {step} de 3 — {step === 2 ? 'dados pessoais' : 'dados básicos'}
+        Passo {step} de 3 —{' '}
+        {step === 3 ? 'preferências' : step === 2 ? 'dados pessoais' : 'dados básicos'}
       </p>
     </div>
   )
@@ -80,6 +81,50 @@ function Step2Content() {
           Seus dados são criptografados e nunca serão compartilhados com terceiros sem sua autorização.
         </p>
       </div>
+    </>
+  )
+}
+
+const STEP3_CHECKLIST = [
+  { label: 'Dados básicos', done: true },
+  { label: 'Dados pessoais', done: true },
+  { label: 'Preferências', done: false },
+] as const
+
+function Step3Content() {
+  return (
+    <>
+      <div className="space-y-5">
+        <h2 className="text-4xl xl:text-5xl font-bold text-gray-900 leading-tight mt-35">
+          Você está quase lá! Personalize sua experiência.
+        </h2>
+        <p className="text-gray-700 text-base leading-relaxed max-w-sm">
+          Escolha suas categorias favoritas e receba ofertas e recomendações personalizadas.
+        </p>
+      </div>
+
+      <ul className="space-y-3">
+        {STEP3_CHECKLIST.map(({ label, done }) => (
+          <li key={label} className="flex items-center gap-3">
+            <div
+              className={[
+                'w-6 h-6 rounded-full flex items-center justify-center shrink-0',
+                done ? 'bg-[#1a1f6e]' : 'border-2 border-[#1a1f6e]',
+              ].join(' ')}
+              aria-hidden="true"
+            >
+              {done && (
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              )}
+            </div>
+            <span className={`text-sm font-medium ${done ? 'text-gray-800' : 'text-[#1a1f6e] font-semibold'}`}>
+              {label}
+            </span>
+          </li>
+        ))}
+      </ul>
     </>
   )
 }
