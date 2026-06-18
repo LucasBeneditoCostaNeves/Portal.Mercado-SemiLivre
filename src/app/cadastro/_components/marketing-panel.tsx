@@ -38,7 +38,7 @@ function Step1Content() {
   return (
     <>
       <div className="space-y-5">
-        <h2 className="text-4xl xl:text-5xl font-bold text-gray-900 leading-tight">
+        <h2 className="text-4xl xl:text-5xl font-bold text-gray-900 leading-tight mt-18">
           Compre, venda e economize de verdade.
         </h2>
         <p className="text-gray-700 text-base leading-relaxed max-w-sm">

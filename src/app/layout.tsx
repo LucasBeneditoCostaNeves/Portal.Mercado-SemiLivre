@@ -11,6 +11,9 @@ const roboto = Roboto({
 export const metadata: Metadata = {
   title: "Mercado Livre",
   description: "Compre, venda e economize de verdade.",
+  icons: {
+    icon: "/logo-mercadoSemilivre.png",
+  },
 };
 
 export default function RootLayout({

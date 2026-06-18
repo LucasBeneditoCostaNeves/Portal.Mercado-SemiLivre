@@ -18,7 +18,7 @@ export function MobileMarketingBanner({ step = 1 }: MobileMarketingBannerProps) 
       />
       {step === 2 ? (
         <>
-          <h2 className="text-2xl font-bold text-[#1a1f6e] leading-snug mb-2 -mt-8 max-w-[270px]">
+          <h2 className="text-2xl font-bold text-[#1a1f6e] leading-snug mb-2 max-w-[270px]">
             Só mais alguns dados para proteger sua conta
           </h2>
           <p className="text-sm text-[#1a1f6e]">
@@ -27,7 +27,7 @@ export function MobileMarketingBanner({ step = 1 }: MobileMarketingBannerProps) 
         </>
       ) : (
         <>
-          <h2 className="text-2xl font-bold text-[#1a1f6e] leading-snug mb-2 -mt-8 max-w-[270px]">
+          <h2 className="text-2xl font-bold text-[#1a1f6e] leading-snug mb-2 max-w-[270px]">
             Crie sua conta e compre com frete grátis
           </h2>
           <p className="text-sm text-[#1a1f6e]">
