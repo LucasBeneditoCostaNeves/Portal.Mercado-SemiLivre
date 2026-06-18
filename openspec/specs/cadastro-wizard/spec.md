@@ -35,3 +35,12 @@ O `MobileMarketingBanner` SHALL exibir o título "Quase lá!" e subtítulo "Pass
 #### Scenario: MobileMarketingBanner no passo 3
 - **WHEN** `step === 3` em viewport mobile
 - **THEN** o banner exibe "Quase lá!" e "Passo 3 de 3 — preferências"
+
+---
+
+### Requirement: Link para login no RegisterForm
+O `RegisterForm` (step-1 do cadastro) SHALL exibir um link "Já tem conta? Entrar" que navega para `/login`, permitindo que usuários existentes acessem a página de autenticação diretamente a partir do fluxo de cadastro.
+
+#### Scenario: Link para login está presente no step-1
+- **WHEN** o usuário visualiza o step-1 do cadastro (`RegisterForm`)
+- **THEN** um link "Entrar" (ou equivalente) está visível e navega para `/login` ao ser clicado
