@@ -1,4 +1,4 @@
-import { MercadoLivreLogo } from './mercadolivre-logo'
+import Image from 'next/image'
 
 const FEATURES = [
   'Frete grátis em milhares de produtos',
@@ -8,8 +8,19 @@ const FEATURES = [
 
 export function MarketingPanel() {
   return (
-    <div className="flex flex-col justify-between w-full h-full p-10 xl:p-14">
-      <MercadoLivreLogo />
+    <div className="relative flex flex-col justify-between w-full h-full p-10 xl:p-14">
+      <Image
+          src="/logo-mercadoSemilivre.png"
+          alt="Mercado Semilivre"
+          width={130}
+          height={87}
+          priority
+          style={{ height: 'auto' }}
+          className="absolute top-10 left-10 xl:top-14 xl:left-14 rounded-xl"
+        />
+
+      {/* spacer que ocupa o lugar da imagem no fluxo flex */}
+      <div className="h-[40px]" />
 
       <div className="space-y-5">
         <h2 className="text-4xl xl:text-5xl font-bold text-gray-900 leading-tight">

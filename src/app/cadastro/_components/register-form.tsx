@@ -8,6 +8,7 @@ import { GoogleSignInButton } from './google-signin-button'
 import { Divider } from './divider'
 import { FormField } from './form-field'
 import { SubmitButton } from './submit-button'
+import { MobileFeatureRow } from './mobile-feature-row'
 
 const INITIAL_STATE: RegisterFormState = {}
 
@@ -68,6 +69,10 @@ export function RegisterForm() {
       />
 
       <SubmitButton label="Criar conta grátis" />
+
+      <div className="lg:hidden">
+        <MobileFeatureRow />
+      </div>
 
       <div className="flex flex-col items-center gap-2 pt-1 text-sm text-zinc-400">
         <p>
