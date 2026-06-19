@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { FeatureIcon } from './feature-icon'
 
 type MarketingPanelProps = {
   step?: number
@@ -16,8 +17,8 @@ export function MarketingPanel({ step = 1 }: MarketingPanelProps) {
       <Image
         src="/logo-mercadoSemilivre.png"
         alt="Mercado Semilivre"
-        width={260}
-        height={87}
+        width={173}
+        height={58}
         priority
         style={{ height: 'auto' }}
         className="absolute top-10 left-10 xl:top-14 xl:left-0 rounded-xl"
@@ -39,7 +40,7 @@ function Step1Content() {
   return (
     <>
       <div className="space-y-5">
-        <h2 className="text-4xl xl:text-5xl font-bold text-gray-900 leading-tight mt-18">
+        <h2 className="text-4xl xl:text-5xl font-bold text-gray-900 leading-tight mt-5">
           Compre, venda e economize de verdade.
         </h2>
         <p className="text-gray-700 text-base leading-relaxed max-w-sm">
@@ -129,13 +130,3 @@ function Step3Content() {
   )
 }
 
-function FeatureIcon() {
-  return (
-    <div
-      className="w-8 h-8 rounded-full bg-[#1a1f6e] flex items-center justify-center shrink-0"
-      aria-hidden="true"
-    >
-      <div className="w-3.5 h-3.5 border-2 border-white rounded-sm" />
-    </div>
-  )
-}

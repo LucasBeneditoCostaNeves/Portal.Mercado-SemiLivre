@@ -4,43 +4,16 @@ import { useActionState, useEffect, useState } from 'react'
 import { useFormStatus } from 'react-dom'
 import { savePersonalData } from '../actions'
 import type { PersonalDataFormState } from '@/domain/auth/types'
-import { FormField } from './form-field'
-import { SelectField } from './select-field'
+import { FormField } from '@/components/ui/form-field'
+import { SelectField } from '@/components/ui/select-field'
+import { BR_STATES } from '@/constants/brazil'
+import { maskCep, maskCpf, maskDate, maskPhone } from '@/lib/masks'
 
 const INITIAL_STATE: PersonalDataFormState = {}
-
-const BR_STATES = [
-  'AC','AL','AP','AM','BA','CE','DF','ES','GO','MA',
-  'MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN',
-  'RS','RO','RR','SC','SP','SE','TO',
-]
 
 type Props = {
   onBack: () => void
   onSuccess: () => void
-}
-
-function maskCpf(v: string) {
-  return v.replace(/\D/g, '').slice(0, 11)
-    .replace(/(\d{3})(\d)/, '$1.$2')
-    .replace(/(\d{3})\.(\d{3})(\d)/, '$1.$2.$3')
-    .replace(/(\d{3})\.(\d{3})\.(\d{3})(\d{1,2})/, '$1.$2.$3-$4')
-}
-
-function maskDate(v: string) {
-  return v.replace(/\D/g, '').slice(0, 8)
-    .replace(/(\d{2})(\d)/, '$1/$2')
-    .replace(/(\d{2})\/(\d{2})(\d)/, '$1/$2/$3')
-}
-
-function maskPhone(v: string) {
-  const d = v.replace(/\D/g, '').slice(0, 11)
-  if (d.length <= 10) return d.replace(/(\d{2})(\d)/, '($1) $2').replace(/(\d{4})(\d)/, '$1-$2')
-  return d.replace(/(\d{2})(\d)/, '($1) $2').replace(/(\d{5})(\d)/, '$1-$2')
-}
-
-function maskCep(v: string) {
-  return v.replace(/\D/g, '').slice(0, 8).replace(/(\d{5})(\d)/, '$1-$2')
 }
 
 function FormActions({ onBack }: { onBack: () => void }) {
@@ -76,7 +49,7 @@ export function PersonalDataForm({ onBack, onSuccess }: Props) {
 
   useEffect(() => {
     if (state.success) onSuccess()
-  }, [state.success]) // onSuccess é estável (useCallback no wizard)
+  }, [state.success, onSuccess])
 
   return (
     <form action={formAction} noValidate className="flex flex-col gap-4">
