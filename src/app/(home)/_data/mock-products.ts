@@ -1,0 +1,48 @@
+import { Product } from "@/domain/catalog/types";
+
+export const mockProducts: Product[] = [
+  {
+    id: "p1",
+    title: "Smartphone Samsung Galaxy A55 128GB 5G",
+    price: 1499.99,
+    installments: "12x R$ 124,99 sem juros",
+    freeShipping: true,
+    rating: 4.8,
+    reviewCount: 2341,
+    icon: "ti-device-mobile",
+    badge: "OFERTA",
+  },
+  {
+    id: "p2",
+    title: "Notebook Dell Inspiron 15 Intel i5 8GB 512GB SSD",
+    price: 3299.0,
+    installments: "12x R$ 274,91 sem juros",
+    freeShipping: true,
+    rating: 4.7,
+    reviewCount: 987,
+    icon: "ti-device-laptop",
+    badge: "NOVO",
+  },
+  {
+    id: "p3",
+    title: "Fone Bluetooth JBL Tune 520BT Over-Ear",
+    price: 299.9,
+    installments: "3x R$ 99,96 sem juros",
+    freeShipping: true,
+    rating: 4.9,
+    reviewCount: 5102,
+    icon: "ti-headphones",
+    badge: "OFERTA",
+  },
+  {
+    id: "p4",
+    title: 'Smart TV Samsung 55" 4K QLED Crystal',
+    price: 2799.0,
+    installments: "12x R$ 233,25 sem juros",
+    freeShipping: true,
+    rating: 4.6,
+    reviewCount: 1450,
+    icon: "ti-device-tv",
+    badge: "NOVO",
+  },
+];
