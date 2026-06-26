@@ -6,7 +6,7 @@ const stats = [
 
 export default function HeroBanner() {
   return (
-    <section className="bg-[#2D3277] rounded-xl p-6 lg:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+    <section className="bg-[var(--color-brand-dark)] rounded-xl p-6 lg:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-1.5 bg-[#FFE600] rounded-full px-3 py-1 w-fit">
           <i className="ti ti-bolt text-xs text-zinc-900" aria-hidden="true" />

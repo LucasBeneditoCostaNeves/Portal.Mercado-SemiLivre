@@ -21,20 +21,20 @@ const promoCards = [
 
 const variantStyles = {
   yellow: {
-    card: "bg-[#FFE600]",
+    card: "bg-[var(--color-brand)]",
     title: "text-zinc-900",
     description: "text-zinc-700",
-    iconWrapper: "bg-[#2D3277]/10",
-    icon: "text-[#2D3277]",
-    btn: "bg-[#2D3277] text-[#FFE600]",
+    iconWrapper: "bg-[var(--color-brand-dark)]/10",
+    icon: "text-[var(--color-brand-dark)]",
+    btn: "bg-[var(--color-brand-dark)] text-[var(--color-brand)]",
   },
   blue: {
-    card: "bg-[#2D3277]",
+    card: "bg-[var(--color-brand-dark)]",
     title: "text-white",
     description: "text-white/75",
     iconWrapper: "bg-white/15",
-    icon: "text-[#FFE600]",
-    btn: "bg-[#FFE600] text-zinc-900",
+    icon: "text-[var(--color-brand)]",
+    btn: "bg-[var(--color-brand)] text-zinc-900",
   },
 };
 

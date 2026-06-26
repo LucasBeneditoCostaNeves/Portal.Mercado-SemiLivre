@@ -10,7 +10,7 @@ export function StepIndicator({ currentStep = 1, totalSteps = 3 }: StepIndicator
         <div
           key={i}
           className={`h-1 w-10 rounded-full transition-colors ${
-            i < currentStep ? 'bg-[#FFE600]' : 'bg-zinc-700'
+            i < currentStep ? 'bg-[var(--color-brand)]' : 'bg-[var(--color-bg-elevated)]'
           }`}
         />
       ))}

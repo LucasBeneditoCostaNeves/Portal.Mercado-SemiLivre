@@ -96,15 +96,15 @@ export function PreferencesForm({ onSuccess }: PreferencesFormProps) {
               className={[
                 'flex flex-col items-start gap-2 rounded-xl border p-4 text-left transition-colors',
                 isSelected
-                  ? 'border-[#FFE600] bg-zinc-700 text-white'
-                  : 'border-zinc-700 bg-zinc-800 text-zinc-300 hover:border-zinc-500',
+                  ? 'border-[var(--color-brand)] bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)]'
+                  : 'border-[var(--color-border)] bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:border-[var(--color-bg-elevated)]',
               ].join(' ')}
             >
-              <span className={isSelected ? 'text-[#FFE600]' : 'text-zinc-400'}>
+              <span className={isSelected ? 'text-[var(--color-brand)]' : 'text-[var(--color-text-secondary)]'}>
                 {category.icon}
               </span>
-              <span className="text-sm font-semibold leading-tight">{category.label}</span>
-              <span className="text-xs text-zinc-400 leading-tight">{category.subtitle}</span>
+              <span className="text-sm font-semibold leading-tight text-[var(--color-text-primary)]">{category.label}</span>
+              <span className="text-xs text-[var(--color-text-secondary)] leading-tight">{category.subtitle}</span>
             </button>
           )
         })}
@@ -114,7 +114,7 @@ export function PreferencesForm({ onSuccess }: PreferencesFormProps) {
         <button
           type="submit"
           disabled={isPending}
-          className="w-full bg-[#FFE600] text-[#1a1f6e] font-bold py-3 rounded-xl hover:bg-yellow-300 transition-colors disabled:opacity-60"
+          className="w-full bg-[var(--color-brand)] text-[var(--color-brand-dark)] font-bold py-3 rounded-xl hover:bg-yellow-300 transition-colors disabled:opacity-60"
         >
           {isPending ? 'Salvando…' : 'Concluir cadastro →'}
         </button>
@@ -122,7 +122,7 @@ export function PreferencesForm({ onSuccess }: PreferencesFormProps) {
         <button
           type="button"
           onClick={onSuccess}
-          className="w-full text-sm text-zinc-400 hover:text-zinc-200 transition-colors py-2"
+          className="w-full text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors py-2"
         >
           Pular por enquanto
         </button>
