@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Product } from "@/domain/catalog/types";
 
 function formatPrice(price: number) {
@@ -16,8 +17,14 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <article className="bg-zinc-800 border border-zinc-700 rounded-xl p-3 flex flex-col gap-2 hover:border-zinc-500 transition-colors">
-      <div className="w-full aspect-square bg-zinc-900 rounded-lg flex items-center justify-center mb-1">
-        <i className={`ti ${product.icon} text-4xl text-zinc-500`} aria-hidden="true" />
+      <div className="relative w-full aspect-square bg-zinc-900 rounded-lg overflow-hidden mb-1">
+        <Image
+          src={product.imageUrl}
+          alt={product.title}
+          fill
+          className="object-contain"
+          sizes="(max-width: 1024px) 50vw, 25vw"
+        />
       </div>
 
       {product.badge && (

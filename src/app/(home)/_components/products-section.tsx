@@ -10,6 +10,8 @@ type Props = {
 };
 
 export default function ProductsSection({ title, products, href, linkLabel }: Props) {
+
+  console.log(products)
   return (
     <section>
       <SectionHeader title={title} href={href} linkLabel={linkLabel} />
