@@ -12,9 +12,6 @@ const roboto = Roboto({
 export const metadata: Metadata = {
   title: 'Mercado Livre',
   description: 'Compre, venda e economize de verdade.',
-  icons: {
-    icon: '/logo-mercadoSemilivre.png',
-  },
 }
 
 const themeScript = `(function(){try{var t=localStorage.getItem('theme');document.documentElement.classList.add(t==='light'?'light':'dark')}catch(e){document.documentElement.classList.add('dark')}})()`

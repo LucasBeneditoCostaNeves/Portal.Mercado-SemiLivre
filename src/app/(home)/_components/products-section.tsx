@@ -18,7 +18,7 @@ export default function ProductsSection({
   return (
     <section>
       <SectionHeader title={title} href={href} linkLabel={linkLabel} />
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-2.5">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}

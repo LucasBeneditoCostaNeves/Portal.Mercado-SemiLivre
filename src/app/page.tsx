@@ -14,8 +14,8 @@ import {
 
 export default async function Home() {
   const [bestsellers, recommended, departments] = await Promise.all([
-    getBestsellers(7),
-    getRecommended(7),
+    getBestsellers(100),
+    getRecommended(100),
     getDepartments(),
   ])
 
