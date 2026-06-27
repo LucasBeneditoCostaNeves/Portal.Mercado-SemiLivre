@@ -1,9 +1,9 @@
 function SkeletonBlock({ className }: { className?: string }) {
   return (
     <div
-      className={`animate-pulse bg-[var(--color-bg-elevated)] rounded-lg ${className ?? ""}`}
+      className={`animate-pulse bg-[var(--color-bg-elevated)] rounded-lg ${className ?? ''}`}
     />
-  );
+  )
 }
 
 export default function ProductDetailLoading() {
@@ -54,5 +54,5 @@ export default function ProductDetailLoading() {
 
       <SkeletonBlock className="h-40 rounded-lg" />
     </main>
-  );
+  )
 }

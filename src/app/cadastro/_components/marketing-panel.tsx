@@ -26,11 +26,21 @@ export function MarketingPanel({ step = 1 }: MarketingPanelProps) {
 
       <div className="h-[40px]" />
 
-      {step === 3 ? <Step3Content /> : step === 2 ? <Step2Content /> : <Step1Content />}
+      {step === 3 ? (
+        <Step3Content />
+      ) : step === 2 ? (
+        <Step2Content />
+      ) : (
+        <Step1Content />
+      )}
 
       <p className="text-xs text-gray-500">
         Passo {step} de 3 —{' '}
-        {step === 3 ? 'preferências' : step === 2 ? 'dados pessoais' : 'dados básicos'}
+        {step === 3
+          ? 'preferências'
+          : step === 2
+            ? 'dados pessoais'
+            : 'dados básicos'}
       </p>
     </div>
   )
@@ -44,7 +54,8 @@ function Step1Content() {
           Compre, venda e economize de verdade.
         </h2>
         <p className="text-gray-700 text-base leading-relaxed max-w-sm">
-          Milhões de produtos com frete grátis, parcelamento sem juros e entrega rápida no conforto da sua casa.
+          Milhões de produtos com frete grátis, parcelamento sem juros e entrega
+          rápida no conforto da sua casa.
         </p>
       </div>
 
@@ -68,18 +79,32 @@ function Step2Content() {
           Só mais alguns dados para proteger sua conta.
         </h2>
         <p className="text-gray-700 text-base leading-relaxed max-w-sm">
-          Usamos seu CPF e data de nascimento apenas para verificar sua identidade. Suas informações são protegidas.
+          Usamos seu CPF e data de nascimento apenas para verificar sua
+          identidade. Suas informações são protegidas.
         </p>
       </div>
 
       <div className="flex gap-3 items-start bg-[var(--color-brand-dark)]/10 rounded-2xl p-4">
-        <div className="w-9 h-9 rounded-full bg-[var(--color-brand-dark)] flex items-center justify-center shrink-0 mt-0.5" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        <div
+          className="w-9 h-9 rounded-full bg-[var(--color-brand-dark)] flex items-center justify-center shrink-0 mt-0.5"
+          aria-hidden="true"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
           </svg>
         </div>
         <p className="text-sm text-[var(--color-brand-dark)] leading-relaxed">
-          Seus dados são criptografados e nunca serão compartilhados com terceiros sem sua autorização.
+          Seus dados são criptografados e nunca serão compartilhados com
+          terceiros sem sua autorização.
         </p>
       </div>
     </>
@@ -100,7 +125,8 @@ function Step3Content() {
           Você está quase lá! Personalize sua experiência.
         </h2>
         <p className="text-gray-700 text-base leading-relaxed max-w-sm">
-          Escolha suas categorias favoritas e receba ofertas e recomendações personalizadas.
+          Escolha suas categorias favoritas e receba ofertas e recomendações
+          personalizadas.
         </p>
       </div>
 
@@ -110,17 +136,30 @@ function Step3Content() {
             <div
               className={[
                 'w-6 h-6 rounded-full flex items-center justify-center shrink-0',
-                done ? 'bg-[var(--color-brand-dark)]' : 'border-2 border-[var(--color-brand-dark)]',
+                done
+                  ? 'bg-[var(--color-brand-dark)]'
+                  : 'border-2 border-[var(--color-brand-dark)]',
               ].join(' ')}
               aria-hidden="true"
             >
               {done && (
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="20 6 9 17 4 12"/>
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="20 6 9 17 4 12" />
                 </svg>
               )}
             </div>
-            <span className={`text-sm font-medium ${done ? 'text-gray-800' : 'text-[var(--color-brand-dark)] font-semibold'}`}>
+            <span
+              className={`text-sm font-medium ${done ? 'text-gray-800' : 'text-[var(--color-brand-dark)] font-semibold'}`}
+            >
               {label}
             </span>
           </li>

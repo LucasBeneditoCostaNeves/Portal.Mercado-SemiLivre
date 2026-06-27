@@ -1,11 +1,11 @@
-import Image from "next/image";
-import Link from "next/link";
-import { ThemeToggle } from "@/components/theme-toggle";
+import Image from 'next/image'
+import Link from 'next/link'
+import { ThemeToggle } from '@/components/theme-toggle'
 
 export default function Navbar() {
   return (
-    <header className="bg-[var(--color-brand)] px-4 lg:px-6 py-3">
-      <div className="flex flex-wrap items-center gap-3">
+    <header className="bg-[var(--color-brand)] px-6 lg:px-10 py-3 ">
+      <div className="flex flex-wrap items-center gap-3 max-w-[1200px] m-auto">
         <Link href="/" className="flex items-center gap-2 shrink-0">
           <Image
             src="/logo-mercadoSemilivre.png"
@@ -33,16 +33,28 @@ export default function Navbar() {
           </button>
         </div>
 
-        <nav className="flex items-center gap-4 shrink-0 ml-auto lg:ml-0" aria-label="Ações do usuário">
-          <Link href="/login" className="flex flex-col items-center gap-0.5 text-[var(--color-brand-dark)] hover:opacity-75 transition-opacity">
+        <nav
+          className="flex items-center gap-4 shrink-0 ml-auto lg:ml-0"
+          aria-label="Ações do usuário"
+        >
+          <Link
+            href="/login"
+            className="flex flex-col items-center gap-0.5 text-[var(--color-brand-dark)] hover:opacity-75 transition-opacity"
+          >
             <i className="ti ti-user text-lg" aria-hidden="true" />
             <span className="text-[10px] whitespace-nowrap">Entrar</span>
           </Link>
-          <Link href="#" className="flex flex-col items-center gap-0.5 text-[var(--color-brand-dark)] hover:opacity-75 transition-opacity">
+          <Link
+            href="#"
+            className="flex flex-col items-center gap-0.5 text-[var(--color-brand-dark)] hover:opacity-75 transition-opacity"
+          >
             <i className="ti ti-package text-lg" aria-hidden="true" />
             <span className="text-[10px] whitespace-nowrap">Pedidos</span>
           </Link>
-          <Link href="#" className="relative flex flex-col items-center gap-0.5 text-[var(--color-brand-dark)] hover:opacity-75 transition-opacity">
+          <Link
+            href="#"
+            className="relative flex flex-col items-center gap-0.5 text-[var(--color-brand-dark)] hover:opacity-75 transition-opacity"
+          >
             <i className="ti ti-shopping-cart text-lg" aria-hidden="true" />
             <span className="text-[10px] whitespace-nowrap">Carrinho</span>
             <span className="absolute -top-1 -right-2 bg-[var(--color-brand-dark)] text-[var(--color-brand)] text-[9px] font-medium w-3.5 h-3.5 rounded-full flex items-center justify-center">
@@ -53,5 +65,5 @@ export default function Navbar() {
         </nav>
       </div>
     </header>
-  );
+  )
 }

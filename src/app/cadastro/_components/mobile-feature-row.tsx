@@ -12,7 +12,9 @@ export function MobileFeatureRow() {
       {FEATURES.map(({ label }) => (
         <div key={label} className="flex flex-col items-center gap-1.5 px-2">
           <FeatureIcon size="sm" />
-          <span className="text-xs text-[var(--color-text-secondary)] text-center leading-tight">{label}</span>
+          <span className="text-xs text-[var(--color-text-secondary)] text-center leading-tight">
+            {label}
+          </span>
         </div>
       ))}
     </div>

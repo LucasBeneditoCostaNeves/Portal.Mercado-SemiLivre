@@ -19,7 +19,10 @@ export function FormField({
 }: FormFieldProps) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label htmlFor={id} className="text-sm text-[var(--color-text-secondary)]">
+      <label
+        htmlFor={id}
+        className="text-sm text-[var(--color-text-secondary)]"
+      >
         {label}
       </label>
       <input

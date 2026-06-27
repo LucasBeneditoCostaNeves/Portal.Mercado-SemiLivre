@@ -9,10 +9,10 @@ import { isValidEmail } from '@/domain/auth/validators'
 
 export async function loginWithEmail(
   _prevState: LoginFormState,
-  formData: FormData,
+  formData: FormData
 ): Promise<LoginFormState> {
-  const email    = formData.get('email')?.toString().trim() ?? ''
-  const password = formData.get('password')?.toString()     ?? ''
+  const email = formData.get('email')?.toString().trim() ?? ''
+  const password = formData.get('password')?.toString() ?? ''
 
   const errors: LoginFormState['errors'] = {}
 

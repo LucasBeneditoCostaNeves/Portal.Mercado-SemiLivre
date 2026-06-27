@@ -1,19 +1,22 @@
-"use client";
+'use client'
 
-import Image from "next/image";
-import { useState } from "react";
+import Image from 'next/image'
+import { useState } from 'react'
 
 type Props = {
-  imageUrl: string;
-  images: string[];
-  title: string;
-};
+  imageUrl: string
+  images: string[]
+  title: string
+}
 
-const PLACEHOLDER_ICON = "ti-device-mobile";
+const PLACEHOLDER_ICON = 'ti-device-mobile'
 
 export default function ProductGallery({ imageUrl, images, title }: Props) {
-  const allImages = [imageUrl, ...images.filter((img) => img !== imageUrl)].filter(Boolean);
-  const [selected, setSelected] = useState(allImages[0] ?? null);
+  const allImages = [
+    imageUrl,
+    ...images.filter((img) => img !== imageUrl),
+  ].filter(Boolean)
+  const [selected, setSelected] = useState(allImages[0] ?? null)
 
   return (
     <div className="flex items-start gap-3">
@@ -26,8 +29,8 @@ export default function ProductGallery({ imageUrl, images, title }: Props) {
               aria-label={`Ver imagem ${index + 1}`}
               className={`w-12 h-12 bg-[var(--color-bg-secondary)] border rounded-md flex items-center justify-center overflow-hidden transition-colors ${
                 selected === img
-                  ? "border-[#2D3277]"
-                  : "border-[var(--color-border)]"
+                  ? 'border-[#2D3277]'
+                  : 'border-[var(--color-border)]'
               }`}
             >
               <Image
@@ -41,7 +44,10 @@ export default function ProductGallery({ imageUrl, images, title }: Props) {
           ))
         ) : (
           <div className="w-12 h-12 bg-[var(--color-bg-secondary)] border border-[#2D3277] rounded-md flex items-center justify-center">
-            <i className={`ti ${PLACEHOLDER_ICON} text-xl text-[var(--color-text-tertiary)]`} aria-hidden="true" />
+            <i
+              className={`ti ${PLACEHOLDER_ICON} text-xl text-[var(--color-text-tertiary)]`}
+              aria-hidden="true"
+            />
           </div>
         )}
       </div>
@@ -64,5 +70,5 @@ export default function ProductGallery({ imageUrl, images, title }: Props) {
         )}
       </div>
     </div>
-  );
+  )
 }

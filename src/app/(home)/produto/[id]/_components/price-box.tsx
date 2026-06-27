@@ -1,20 +1,23 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import type { ProductDetail } from "@/domain/catalog/types";
+import { useState } from 'react'
+import type { ProductDetail } from '@/domain/catalog/types'
 
-type Props = Pick<ProductDetail, "price" | "installments" | "freeShipping">;
+type Props = Pick<ProductDetail, 'price' | 'installments' | 'freeShipping'>
 
-type DeliveryOption = "envio" | "retirar";
+type DeliveryOption = 'envio' | 'retirar'
 
 function formatPrice(price: number) {
-  const [intPart, decimalPart] = price.toFixed(2).split(".");
-  return { intPart: Number(intPart).toLocaleString("pt-BR"), cents: decimalPart };
+  const [intPart, decimalPart] = price.toFixed(2).split('.')
+  return {
+    intPart: Number(intPart).toLocaleString('pt-BR'),
+    cents: decimalPart,
+  }
 }
 
 export default function PriceBox({ price, installments, freeShipping }: Props) {
-  const [delivery, setDelivery] = useState<DeliveryOption>("envio");
-  const { intPart, cents } = formatPrice(price);
+  const [delivery, setDelivery] = useState<DeliveryOption>('envio')
+  const { intPart, cents } = formatPrice(price)
 
   return (
     <div className="border border-[var(--color-border)] rounded-xl p-4 flex flex-col gap-4 bg-[var(--color-surface-card)]">
@@ -54,11 +57,14 @@ export default function PriceBox({ price, installments, freeShipping }: Props) {
             type="radio"
             name="delivery"
             value="envio"
-            checked={delivery === "envio"}
-            onChange={() => setDelivery("envio")}
+            checked={delivery === 'envio'}
+            onChange={() => setDelivery('envio')}
             className="accent-[#2D3277]"
           />
-          <i className="ti ti-truck text-sm text-[var(--color-text-tertiary)]" aria-hidden="true" />
+          <i
+            className="ti ti-truck text-sm text-[var(--color-text-tertiary)]"
+            aria-hidden="true"
+          />
           Receber em casa
         </label>
         <label className="flex items-center gap-2 text-xs text-[var(--color-text-secondary)] cursor-pointer">
@@ -66,14 +72,17 @@ export default function PriceBox({ price, installments, freeShipping }: Props) {
             type="radio"
             name="delivery"
             value="retirar"
-            checked={delivery === "retirar"}
-            onChange={() => setDelivery("retirar")}
+            checked={delivery === 'retirar'}
+            onChange={() => setDelivery('retirar')}
             className="accent-[#2D3277]"
           />
-          <i className="ti ti-building-store text-sm text-[var(--color-text-tertiary)]" aria-hidden="true" />
+          <i
+            className="ti ti-building-store text-sm text-[var(--color-text-tertiary)]"
+            aria-hidden="true"
+          />
           Retirar na loja
         </label>
       </div>
     </div>
-  );
+  )
 }

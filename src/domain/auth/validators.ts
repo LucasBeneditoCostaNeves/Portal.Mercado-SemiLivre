@@ -27,5 +27,8 @@ export function isAdult(birthDate: string): boolean {
   const age = today.getFullYear() - birth.getFullYear()
   const monthDiff = today.getMonth() - birth.getMonth()
   const dayDiff = today.getDate() - birth.getDate()
-  return age > 18 || (age === 18 && (monthDiff > 0 || (monthDiff === 0 && dayDiff >= 0)))
+  return (
+    age > 18 ||
+    (age === 18 && (monthDiff > 0 || (monthDiff === 0 && dayDiff >= 0)))
+  )
 }

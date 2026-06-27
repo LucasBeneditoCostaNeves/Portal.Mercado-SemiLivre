@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme inline {
   --font-sans: var(--font-roboto);
@@ -10,8 +10,8 @@ body {
 
 /* ── Brand colors (fixed, theme-independent) ── */
 :root {
-  --color-brand: #FFE600;
-  --color-brand-dark: #2D3277;
+  --color-brand: #ffe600;
+  --color-brand-dark: #2d3277;
 }
 
 /* ── Dark theme tokens ── */

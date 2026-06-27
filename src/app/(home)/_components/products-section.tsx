@@ -1,17 +1,20 @@
-import { Product } from "@/domain/catalog/types";
-import ProductCard from "./product-card";
-import SectionHeader from "./section-header";
+import { Product } from '@/domain/catalog/types'
+import ProductCard from './product-card'
+import SectionHeader from './section-header'
 
 type Props = {
-  title: string;
-  products: Product[];
-  href?: string;
-  linkLabel?: string;
-};
+  title: string
+  products: Product[]
+  href?: string
+  linkLabel?: string
+}
 
-export default function ProductsSection({ title, products, href, linkLabel }: Props) {
-
-  console.log(products)
+export default function ProductsSection({
+  title,
+  products,
+  href,
+  linkLabel,
+}: Props) {
   return (
     <section>
       <SectionHeader title={title} href={href} linkLabel={linkLabel} />
@@ -21,5 +24,5 @@ export default function ProductsSection({ title, products, href, linkLabel }: Pr
         ))}
       </div>
     </section>
-  );
+  )
 }

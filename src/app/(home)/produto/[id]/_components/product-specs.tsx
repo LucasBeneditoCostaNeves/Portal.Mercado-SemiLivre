@@ -1,11 +1,11 @@
-import type { ProductVariationDetail } from "@/domain/catalog/types";
+import type { ProductVariationDetail } from '@/domain/catalog/types'
 
 type Props = {
-  variations: ProductVariationDetail[];
-};
+  variations: ProductVariationDetail[]
+}
 
 function formatPrice(price: number) {
-  return price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  return price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
 }
 
 export default function ProductSpecs({ variations }: Props) {
@@ -20,8 +20,8 @@ export default function ProductSpecs({ variations }: Props) {
             key={variation.id}
             className={`flex items-center gap-3 px-3 py-2.5 ${
               index < variations.length - 1
-                ? "border-b border-[var(--color-border)]"
-                : ""
+                ? 'border-b border-[var(--color-border)]'
+                : ''
             }`}
           >
             <span className="flex-1 text-xs font-medium text-[var(--color-text-secondary)]">
@@ -31,11 +31,13 @@ export default function ProductSpecs({ variations }: Props) {
               {formatPrice(variation.price)}
             </span>
             <span className="text-xs text-[var(--color-text-secondary)] w-20 text-right">
-              {variation.quantity > 0 ? `${variation.quantity} em estoque` : "Indisponível"}
+              {variation.quantity > 0
+                ? `${variation.quantity} em estoque`
+                : 'Indisponível'}
             </span>
           </div>
         ))}
       </div>
     </section>
-  );
+  )
 }
