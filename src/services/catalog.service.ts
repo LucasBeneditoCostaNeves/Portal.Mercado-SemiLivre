@@ -1,10 +1,11 @@
-import type { Department, Product } from '@/domain/catalog/types'
+import type { Department, Product, ProductDetail } from '@/domain/catalog/types'
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
-async function catalogFetch<T>(path: string): Promise<T> {
+async function catalogFetch<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`, {
     next: { revalidate: 60 },
+    ...options,
   })
 
   if (!res.ok) {
@@ -31,4 +32,10 @@ export async function getRecommended(limit: number): Promise<Product[]> {
 export async function getDepartments(): Promise<Department[]> {
   const data = await catalogFetch<{ items: Department[] }>('/catalog/departments')
   return data.items
+}
+
+export async function getProductDetail(id: string): Promise<ProductDetail> {
+  return catalogFetch<ProductDetail>(`/catalog/products/${id}`, {
+    next: { revalidate: 3600 },
+  })
 }
