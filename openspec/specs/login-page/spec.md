@@ -74,12 +74,20 @@ A Server Action `loginWithEmail` SHALL rejeitar a submissão e retornar erros de
 
 ---
 
-### Requirement: Server Action loginWithEmail (stub)
-A Server Action `loginWithEmail` SHALL, após validação bem-sucedida dos campos, retornar `{ success: false, message: "Credenciais inválidas" }` como resposta simulada. A implementação real de autenticação é fora do escopo desta mudança.
+### Requirement: Server Action loginWithEmail integrada ao backend
+A Server Action `loginWithEmail` SHALL, após validação bem-sucedida dos campos, chamar `authService.login(email, password)`. Em caso de sucesso, SHALL armazenar o token retornado via `setSession(acess_token)` e redirecionar o usuário para `/home` via `redirect()`. Em caso de falha com status 401, SHALL retornar `{ success: false, message: "E-mail ou senha incorretos." }`. Em caso de erro de rede ou inesperado, SHALL retornar `{ success: false, message: "Erro inesperado. Tente novamente." }`.
 
-#### Scenario: Credenciais válidas retornam erro simulado
-- **WHEN** o usuário submete e-mail e senha válidos
-- **THEN** a ação retorna `{ success: false, message: "Credenciais inválidas" }` e a mensagem é exibida no formulário
+#### Scenario: Login bem-sucedido redireciona para /home
+- **WHEN** o usuário submete e-mail e senha válidos que a API aceita
+- **THEN** o cookie `session` é criado e o usuário é redirecionado para `/home`
+
+#### Scenario: Credenciais inválidas exibem mensagem de erro
+- **WHEN** o usuário submete e-mail e senha válidos no formato mas que a API rejeita (401)
+- **THEN** a ação retorna `{ success: false, message: "E-mail ou senha incorretos." }` e o formulário exibe a mensagem sem recarregar a página
+
+#### Scenario: Erro de rede exibe mensagem genérica
+- **WHEN** a API está inacessível ao submeter o formulário
+- **THEN** a ação retorna `{ success: false, message: "Erro inesperado. Tente novamente." }` e o formulário exibe a mensagem
 
 ---
 
@@ -96,3 +104,37 @@ O formulário SHALL exibir:
 #### Scenario: Link "Esqueci minha senha" existe
 - **WHEN** o usuário visualiza o formulário
 - **THEN** o link "Esqueci minha senha" está visível e acessível (mesmo que ainda sem destino real)
+
+---
+
+### Requirement: ThemeToggle presente na página de login
+A página `/login` SHALL renderizar o `ThemeToggle` no canto superior direito do painel do formulário, visível em todas as viewports (inclusive mobile, onde o painel de marketing é ocultado).
+
+#### Scenario: Toggle visível em desktop
+- **WHEN** o usuário acessa `/login` em viewport `>= lg`
+- **THEN** o `ThemeToggle` é exibido no painel do formulário (coluna direita), acessível
+
+#### Scenario: Toggle visível em mobile
+- **WHEN** o usuário acessa `/login` em viewport `< lg`
+- **THEN** o `ThemeToggle` é exibido no único painel visível (formulário), acessível
+
+---
+
+### Requirement: Página de login adapta cores ao tema ativo
+Todos os elementos da página `/login` que não usam as cores de marca fixas SHALL usar os tokens de tema (`--color-bg-primary`, `--color-bg-secondary`, `--color-text-primary`, `--color-text-secondary`, `--color-border`), adaptando visualmente ao dark ou light mode.
+
+#### Scenario: Painel de marketing mantém fundo amarelo em ambos os temas
+- **WHEN** o tema ativo é `light` ou `dark`
+- **THEN** o painel esquerdo (marketing) mantém fundo `--color-brand` (`#FFE600`)
+
+#### Scenario: Formulário adapta fundo ao tema
+- **WHEN** o tema ativo é `light`
+- **THEN** o painel do formulário usa fundo `--color-bg-primary` (`#ffffff`) com texto `--color-text-primary` (`#18181b`)
+
+#### Scenario: Formulário mantém contraste em dark mode
+- **WHEN** o tema ativo é `dark`
+- **THEN** o painel do formulário usa fundo `--color-bg-primary` (`#18181b`) com texto `--color-text-primary` (`#ffffff`)
+
+#### Scenario: Campos de input adaptam ao tema
+- **WHEN** o tema ativo muda
+- **THEN** os campos de e-mail e senha atualizam bordas e fundo conforme `--color-border` e `--color-bg-secondary`

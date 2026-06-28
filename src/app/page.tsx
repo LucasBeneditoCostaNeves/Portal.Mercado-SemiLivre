@@ -1,32 +1,40 @@
-import Navbar from "./(home)/_components/navbar";
-import Subnav from "./(home)/_components/subnav";
-import HeroBanner from "./(home)/_components/hero-banner";
-import DepartmentsGrid from "./(home)/_components/departments-grid";
-import ProductsSection from "./(home)/_components/products-section";
-import PromoRow from "./(home)/_components/promo-row";
-import HomeFooter from "./(home)/_components/home-footer";
-import SectionHeader from "./(home)/_components/section-header";
-import { mockProducts } from "./(home)/_data/mock-products";
-import { mockRecommended } from "./(home)/_data/mock-recommended";
-import { mockDepartments } from "./(home)/_data/mock-departments";
+import Navbar from './(home)/_components/navbar'
+import Subnav from './(home)/_components/subnav'
+import HeroBanner from './(home)/_components/hero-banner'
+import DepartmentsGrid from './(home)/_components/departments-grid'
+import ProductsSection from './(home)/_components/products-section'
+import PromoRow from './(home)/_components/promo-row'
+import HomeFooter from './(home)/_components/home-footer'
+import SectionHeader from './(home)/_components/section-header'
+import {
+  getBestsellers,
+  getDepartments,
+  getRecommended,
+} from '@/services/catalog.service'
 
-export default function Home() {
+export default async function Home() {
+  const [bestsellers, recommended, departments] = await Promise.all([
+    getBestsellers(100),
+    getRecommended(100),
+    getDepartments(),
+  ])
+
   return (
-    <div className="flex flex-col min-h-full bg-zinc-900">
+    <div className="flex flex-col min-h-full bg-[var(--color-bg-primary)]">
       <Navbar />
       <Subnav />
 
-      <main className="flex-1 flex flex-col gap-5 px-4 lg:px-6 py-5">
+      <main className="flex-1 flex flex-col gap-5 px-6 lg:px-4 py-5 max-w-[1200px] mx-auto w-full">
         <HeroBanner />
 
         <section>
           <SectionHeader title="Departamentos" href="#" />
-          <DepartmentsGrid departments={mockDepartments} />
+          <DepartmentsGrid departments={departments} />
         </section>
 
         <ProductsSection
           title="Mais vendidos"
-          products={mockProducts}
+          products={bestsellers}
           href="#"
         />
 
@@ -34,7 +42,7 @@ export default function Home() {
 
         <ProductsSection
           title="Recomendados para você"
-          products={mockRecommended}
+          products={recommended}
           href="#"
           linkLabel="Ver mais"
         />
@@ -42,5 +50,5 @@ export default function Home() {
 
       <HomeFooter />
     </div>
-  );
+  )
 }

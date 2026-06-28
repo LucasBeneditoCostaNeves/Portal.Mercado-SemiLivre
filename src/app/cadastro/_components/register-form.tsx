@@ -74,14 +74,20 @@ export function RegisterForm({ onSuccess }: Props) {
         <MobileFeatureRow />
       </div>
 
-      <div className="flex flex-col items-center gap-2 pt-1 text-sm text-zinc-400">
+      <div className="flex flex-col items-center gap-2 pt-1 text-sm text-[var(--color-text-secondary)]">
         <p>
           Já tem conta?{' '}
-          <Link href="/login" className="text-[#FFE600] hover:underline font-medium">
+          <Link
+            href="/login"
+            className="text-[var(--color-brand-dark)] hover:underline font-medium"
+          >
             Entrar
           </Link>
         </p>
-        <Link href="#" className="underline hover:text-zinc-300 transition-colors">
+        <Link
+          href="#"
+          className="underline hover:text-[var(--color-text-primary)] transition-colors"
+        >
           Criar uma conta corporativa
         </Link>
       </div>

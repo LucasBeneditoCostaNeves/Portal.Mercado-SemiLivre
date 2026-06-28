@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme inline {
   --font-sans: var(--font-roboto);
@@ -6,4 +6,32 @@
 
 body {
   font-family: var(--font-sans), sans-serif;
+}
+
+/* ── Brand colors (fixed, theme-independent) ── */
+:root {
+  --color-brand: #ffe600;
+  --color-brand-dark: #2d3277;
+}
+
+/* ── Dark theme tokens ── */
+.dark {
+  --color-bg-primary: #18181b;
+  --color-bg-secondary: #27272a;
+  --color-bg-elevated: #3f3f46;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a1a1aa;
+  --color-border: #3f3f46;
+  --color-surface-card: #27272a;
+}
+
+/* ── Light theme tokens ── */
+.light {
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f4f4f5;
+  --color-bg-elevated: #e4e4e7;
+  --color-text-primary: #18181b;
+  --color-text-secondary: #52525b;
+  --color-border: #d4d4d8;
+  --color-surface-card: #ffffff;
 }

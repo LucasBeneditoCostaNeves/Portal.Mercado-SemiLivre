@@ -1,14 +1,18 @@
 'use server'
 
+import { redirect } from 'next/navigation'
+import { ApiError } from '@/lib/http-client'
+import { setSession } from '@/lib/session'
+import { authService } from '@/services/auth.service'
 import type { LoginFormState } from '@/domain/auth/types'
 import { isValidEmail } from '@/domain/auth/validators'
 
 export async function loginWithEmail(
   _prevState: LoginFormState,
-  formData: FormData,
+  formData: FormData
 ): Promise<LoginFormState> {
-  const email    = formData.get('email')?.toString().trim() ?? ''
-  const password = formData.get('password')?.toString()     ?? ''
+  const email = formData.get('email')?.toString().trim() ?? ''
+  const password = formData.get('password')?.toString() ?? ''
 
   const errors: LoginFormState['errors'] = {}
 
@@ -28,5 +32,15 @@ export async function loginWithEmail(
     return { errors }
   }
 
-  return { success: false, message: 'Credenciais inválidas.' }
+  try {
+    const { acess_token } = await authService.login(email, password)
+    await setSession(acess_token)
+  } catch (err) {
+    if (err instanceof ApiError && err.status === 401) {
+      return { success: false, message: 'E-mail ou senha incorretos.' }
+    }
+    return { success: false, message: 'Erro inesperado. Tente novamente.' }
+  }
+
+  redirect('/')
 }

@@ -3,8 +3,12 @@ export function MercadoLivreLogo() {
     <div className="flex items-center gap-2">
       <HandshakeIcon />
       <div className="leading-[1.1]">
-        <span className="block text-[15px] font-bold text-gray-800 tracking-tight">mercado</span>
-        <span className="block text-[15px] font-bold text-gray-800 tracking-tight">livre</span>
+        <span className="block text-[15px] font-bold text-gray-800 tracking-tight">
+          mercado
+        </span>
+        <span className="block text-[15px] font-bold text-gray-800 tracking-tight">
+          livre
+        </span>
       </div>
     </div>
   )

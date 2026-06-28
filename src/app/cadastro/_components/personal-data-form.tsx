@@ -11,6 +11,9 @@ import { maskCep, maskCpf, maskDate, maskPhone } from '@/lib/masks'
 
 const INITIAL_STATE: PersonalDataFormState = {}
 
+const inputCls =
+  'w-full px-4 py-3 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-brand)] focus:border-transparent aria-[invalid=true]:border-red-500 aria-[invalid=true]:ring-red-500 transition'
+
 type Props = {
   onBack: () => void
   onSuccess: () => void
@@ -24,14 +27,14 @@ function FormActions({ onBack }: { onBack: () => void }) {
         type="button"
         onClick={onBack}
         disabled={pending}
-        className="flex-1 py-3 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-zinc-400 text-sm rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="flex-1 py-3 bg-[var(--color-bg-secondary)] hover:bg-[var(--color-bg-elevated)] border border-[var(--color-border)] text-[var(--color-text-secondary)] text-sm rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         ← Voltar
       </button>
       <button
         type="submit"
         disabled={pending}
-        className="flex-[2] py-3.5 bg-[#FFE600] hover:bg-yellow-400 text-[#1a1f6e] text-sm font-bold rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="flex-[2] py-3.5 bg-[var(--color-brand)] hover:bg-yellow-400 text-[var(--color-brand-dark)] text-sm font-bold rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {pending ? 'Salvando...' : 'Continuar →'}
       </button>
@@ -42,10 +45,10 @@ function FormActions({ onBack }: { onBack: () => void }) {
 export function PersonalDataForm({ onBack, onSuccess }: Props) {
   const [state, formAction] = useActionState(savePersonalData, INITIAL_STATE)
 
-  const [cpf, setCpf]           = useState('')
+  const [cpf, setCpf] = useState('')
   const [birthDate, setBirthDate] = useState('')
-  const [phone, setPhone]       = useState('')
-  const [cep, setCep]           = useState('')
+  const [phone, setPhone] = useState('')
+  const [cep, setCep] = useState('')
 
   useEffect(() => {
     if (state.success) onSuccess()
@@ -55,7 +58,12 @@ export function PersonalDataForm({ onBack, onSuccess }: Props) {
     <form action={formAction} noValidate className="flex flex-col gap-4">
       <div className="grid grid-cols-2 gap-3">
         <div className="flex flex-col gap-1.5">
-          <label htmlFor="cpf" className="text-sm text-zinc-400">CPF</label>
+          <label
+            htmlFor="cpf"
+            className="text-sm text-[var(--color-text-secondary)]"
+          >
+            CPF
+          </label>
           <input
             id="cpf"
             name="cpf"
@@ -67,15 +75,22 @@ export function PersonalDataForm({ onBack, onSuccess }: Props) {
             onChange={(e) => setCpf(maskCpf(e.target.value))}
             aria-describedby={state.errors?.cpf ? 'cpf-error' : undefined}
             aria-invalid={!!state.errors?.cpf}
-            className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#FFE600] focus:border-transparent aria-[invalid=true]:border-red-500 aria-[invalid=true]:ring-red-500 transition"
+            className={inputCls}
           />
           {state.errors?.cpf && (
-            <p id="cpf-error" role="alert" className="text-xs text-red-400">{state.errors.cpf[0]}</p>
+            <p id="cpf-error" role="alert" className="text-xs text-red-400">
+              {state.errors.cpf[0]}
+            </p>
           )}
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label htmlFor="birthDate" className="text-sm text-zinc-400">Data de nascimento</label>
+          <label
+            htmlFor="birthDate"
+            className="text-sm text-[var(--color-text-secondary)]"
+          >
+            Data de nascimento
+          </label>
           <input
             id="birthDate"
             name="birthDate"
@@ -85,18 +100,31 @@ export function PersonalDataForm({ onBack, onSuccess }: Props) {
             autoComplete="bday"
             value={birthDate}
             onChange={(e) => setBirthDate(maskDate(e.target.value))}
-            aria-describedby={state.errors?.birthDate ? 'birthDate-error' : undefined}
+            aria-describedby={
+              state.errors?.birthDate ? 'birthDate-error' : undefined
+            }
             aria-invalid={!!state.errors?.birthDate}
-            className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#FFE600] focus:border-transparent aria-[invalid=true]:border-red-500 aria-[invalid=true]:ring-red-500 transition"
+            className={inputCls}
           />
           {state.errors?.birthDate && (
-            <p id="birthDate-error" role="alert" className="text-xs text-red-400">{state.errors.birthDate[0]}</p>
+            <p
+              id="birthDate-error"
+              role="alert"
+              className="text-xs text-red-400"
+            >
+              {state.errors.birthDate[0]}
+            </p>
           )}
         </div>
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="phone" className="text-sm text-zinc-400">Telefone celular</label>
+        <label
+          htmlFor="phone"
+          className="text-sm text-[var(--color-text-secondary)]"
+        >
+          Telefone celular
+        </label>
         <input
           id="phone"
           name="phone"
@@ -107,27 +135,43 @@ export function PersonalDataForm({ onBack, onSuccess }: Props) {
           onChange={(e) => setPhone(maskPhone(e.target.value))}
           aria-describedby={state.errors?.phone ? 'phone-error' : undefined}
           aria-invalid={!!state.errors?.phone}
-          className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#FFE600] focus:border-transparent aria-[invalid=true]:border-red-500 aria-[invalid=true]:ring-red-500 transition"
+          className={inputCls}
         />
         {state.errors?.phone && (
-          <p id="phone-error" role="alert" className="text-xs text-red-400">{state.errors.phone[0]}</p>
+          <p id="phone-error" role="alert" className="text-xs text-red-400">
+            {state.errors.phone[0]}
+          </p>
         )}
       </div>
 
-      <SelectField id="gender" name="gender" label="Gênero" error={state.errors?.gender?.[0]}>
-        <option value="" disabled>Selecione</option>
+      <SelectField
+        id="gender"
+        name="gender"
+        label="Gênero"
+        error={state.errors?.gender?.[0]}
+      >
+        <option value="" disabled>
+          Selecione
+        </option>
         <option value="masculino">Masculino</option>
         <option value="feminino">Feminino</option>
         <option value="nao-binario">Não-binário</option>
         <option value="prefiro-nao-informar">Prefiro não informar</option>
       </SelectField>
 
-      <div className="border-t border-zinc-700 pt-4 mt-1 flex flex-col gap-4">
-        <p className="text-sm font-medium text-white -mb-1">Endereço de entrega</p>
+      <div className="border-t border-[var(--color-border)] pt-4 mt-1 flex flex-col gap-4">
+        <p className="text-sm font-medium text-[var(--color-text-primary)] -mb-1">
+          Endereço de entrega
+        </p>
 
         <div className="grid grid-cols-2 gap-3">
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="cep" className="text-sm text-zinc-400">CEP</label>
+            <label
+              htmlFor="cep"
+              className="text-sm text-[var(--color-text-secondary)]"
+            >
+              CEP
+            </label>
             <input
               id="cep"
               name="cep"
@@ -139,17 +183,28 @@ export function PersonalDataForm({ onBack, onSuccess }: Props) {
               onChange={(e) => setCep(maskCep(e.target.value))}
               aria-describedby={state.errors?.cep ? 'cep-error' : undefined}
               aria-invalid={!!state.errors?.cep}
-              className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#FFE600] focus:border-transparent aria-[invalid=true]:border-red-500 aria-[invalid=true]:ring-red-500 transition"
+              className={inputCls}
             />
             {state.errors?.cep && (
-              <p id="cep-error" role="alert" className="text-xs text-red-400">{state.errors.cep[0]}</p>
+              <p id="cep-error" role="alert" className="text-xs text-red-400">
+                {state.errors.cep[0]}
+              </p>
             )}
           </div>
 
-          <SelectField id="state" name="state" label="Estado" error={state.errors?.state?.[0]}>
-            <option value="" disabled>UF</option>
+          <SelectField
+            id="state"
+            name="state"
+            label="Estado"
+            error={state.errors?.state?.[0]}
+          >
+            <option value="" disabled>
+              UF
+            </option>
             {BR_STATES.map((uf) => (
-              <option key={uf} value={uf}>{uf}</option>
+              <option key={uf} value={uf}>
+                {uf}
+              </option>
             ))}
           </SelectField>
         </div>

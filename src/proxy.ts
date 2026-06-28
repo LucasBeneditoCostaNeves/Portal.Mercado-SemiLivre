@@ -1,0 +1,23 @@
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+
+export function proxy(request: NextRequest) {
+  const session = request.cookies.get('session')
+
+  if (!session) {
+    return NextResponse.redirect(new URL('/login', request.url))
+  }
+
+  return NextResponse.next()
+}
+
+export const config = {
+  matcher: [
+    '/home',
+    '/home/:path*',
+    '/perfil',
+    '/perfil/:path*',
+    '/anuncios',
+    '/anuncios/:path*',
+  ],
+}

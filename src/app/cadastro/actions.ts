@@ -1,22 +1,28 @@
 'use server'
 
-import type { PersonalDataFormState, PreferencesFormState, RegisterFormState } from '@/domain/auth/types'
+import type {
+  PersonalDataFormState,
+  PreferencesFormState,
+  RegisterFormState,
+} from '@/domain/auth/types'
 import { isAdult, isValidCpf, isValidEmail } from '@/domain/auth/validators'
 import { BR_STATES, GENDERS } from '@/constants/brazil'
+import { ApiError } from '@/lib/http-client'
+import { authService } from '@/services/auth.service'
 
 export async function registerWithEmail(
   _prevState: RegisterFormState,
-  formData: FormData,
+  formData: FormData
 ): Promise<RegisterFormState> {
   const firstName = formData.get('firstName')?.toString().trim() ?? ''
-  const lastName  = formData.get('lastName')?.toString().trim()  ?? ''
-  const email     = formData.get('email')?.toString().trim()     ?? ''
-  const password  = formData.get('password')?.toString()         ?? ''
+  const lastName = formData.get('lastName')?.toString().trim() ?? ''
+  const email = formData.get('email')?.toString().trim() ?? ''
+  const password = formData.get('password')?.toString() ?? ''
 
   const errors: RegisterFormState['errors'] = {}
 
   if (!firstName) errors.firstName = ['Nome é obrigatório.']
-  if (!lastName)  errors.lastName  = ['Sobrenome é obrigatório.']
+  if (!lastName) errors.lastName = ['Sobrenome é obrigatório.']
 
   if (!email) {
     errors.email = ['E-mail é obrigatório.']
@@ -34,23 +40,53 @@ export async function registerWithEmail(
     return { errors }
   }
 
-  // TODO: persistir usuário, redirecionar para próximo passo
-  return { success: true, message: `Conta criada para ${email}!` }
+  const profileId = process.env.USER_PROFILE_ID
+  if (!profileId) {
+    return {
+      success: false,
+      message: 'Configuração interna ausente. Contate o administrador.',
+    }
+  }
+
+  try {
+    await authService.register({
+      name: firstName,
+      lastName,
+      email,
+      password,
+      status: true,
+      profileId,
+    })
+    return {
+      success: true,
+      message: 'Conta criada com sucesso! Faça login para continuar.',
+    }
+  } catch (err) {
+    if (err instanceof ApiError) {
+      const isEmailTaken =
+        err.status === 409 ||
+        (err.status === 400 && err.message.toLowerCase().includes('email'))
+      if (isEmailTaken) {
+        return { errors: { email: ['Este e-mail já está cadastrado.'] } }
+      }
+    }
+    return { success: false, message: 'Erro inesperado. Tente novamente.' }
+  }
 }
 
 export async function savePersonalData(
   _prevState: PersonalDataFormState,
-  formData: FormData,
+  formData: FormData
 ): Promise<PersonalDataFormState> {
-  const cpf       = formData.get('cpf')?.toString().trim()       ?? ''
+  const cpf = formData.get('cpf')?.toString().trim() ?? ''
   const birthDate = formData.get('birthDate')?.toString().trim() ?? ''
-  const phone     = formData.get('phone')?.toString().trim()     ?? ''
-  const gender    = formData.get('gender')?.toString().trim()    ?? ''
-  const cep       = formData.get('cep')?.toString().trim()       ?? ''
-  const state     = formData.get('state')?.toString().trim()     ?? ''
-  const city      = formData.get('city')?.toString().trim()      ?? ''
-  const street    = formData.get('street')?.toString().trim()    ?? ''
-  const number    = formData.get('number')?.toString().trim()    ?? ''
+  const phone = formData.get('phone')?.toString().trim() ?? ''
+  const gender = formData.get('gender')?.toString().trim() ?? ''
+  const cep = formData.get('cep')?.toString().trim() ?? ''
+  const state = formData.get('state')?.toString().trim() ?? ''
+  const city = formData.get('city')?.toString().trim() ?? ''
+  const street = formData.get('street')?.toString().trim() ?? ''
+  const number = formData.get('number')?.toString().trim() ?? ''
 
   const errors: PersonalDataFormState['errors'] = {}
 
@@ -88,7 +124,7 @@ export async function savePersonalData(
     errors.state = ['Selecione um estado.']
   }
 
-  if (!city)   errors.city   = ['Cidade é obrigatória.']
+  if (!city) errors.city = ['Cidade é obrigatória.']
   if (!street) errors.street = ['Logradouro é obrigatório.']
   if (!number) errors.number = ['Número é obrigatório.']
 
@@ -100,7 +136,7 @@ export async function savePersonalData(
 
 export async function savePreferences(
   _prevState: PreferencesFormState,
-  formData: FormData,
+  formData: FormData
 ): Promise<PreferencesFormState> {
   const categories = formData.getAll('categories').map((v) => v.toString())
   if (!Array.isArray(categories)) {
