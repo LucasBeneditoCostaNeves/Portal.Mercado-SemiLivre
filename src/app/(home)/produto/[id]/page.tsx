@@ -101,6 +101,7 @@ export default async function ProductDetailPage({
               price={product.price}
               installments={product.installments}
               freeShipping={product.freeShipping}
+              variationId={product.variations[0]?.id ?? ''}
             />
           </div>
         </div>

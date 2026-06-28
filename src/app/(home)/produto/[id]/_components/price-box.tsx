@@ -1,9 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useTransition } from 'react'
 import type { ProductDetail } from '@/domain/catalog/types'
+import { addToCart } from '@/app/(home)/carrinho/actions'
 
-type Props = Pick<ProductDetail, 'price' | 'installments' | 'freeShipping'>
+type Props = Pick<ProductDetail, 'price' | 'installments' | 'freeShipping'> & {
+  variationId: string
+}
 
 type DeliveryOption = 'envio' | 'retirar'
 
@@ -15,8 +18,22 @@ function formatPrice(price: number) {
   }
 }
 
-export default function PriceBox({ price, installments, freeShipping }: Props) {
+export default function PriceBox({ price, installments, freeShipping, variationId }: Props) {
   const [delivery, setDelivery] = useState<DeliveryOption>('envio')
+  const [isPending, startTransition] = useTransition()
+  const [feedback, setFeedback] = useState<string | null>(null)
+
+  function handleAddToCart() {
+    startTransition(async () => {
+      const result = await addToCart(variationId, 1)
+      if (result?.error) {
+        setFeedback(result.error)
+      } else {
+        setFeedback('Adicionado ao carrinho!')
+        setTimeout(() => setFeedback(null), 2000)
+      }
+    })
+  }
   const { intPart, cents } = formatPrice(price)
 
   return (
@@ -39,9 +56,11 @@ export default function PriceBox({ price, installments, freeShipping }: Props) {
       <div className="grid grid-cols-2 gap-3">
         <button
           type="button"
-          className="py-3 text-sm font-medium rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-secondary)] text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-colors"
+          onClick={handleAddToCart}
+          disabled={isPending}
+          className="py-3 text-sm font-medium rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-secondary)] text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)] transition-colors disabled:opacity-60"
         >
-          Adicionar ao carrinho
+          {isPending ? 'Adicionando...' : 'Adicionar ao carrinho'}
         </button>
         <button
           type="button"
@@ -50,6 +69,10 @@ export default function PriceBox({ price, installments, freeShipping }: Props) {
           Comprar agora
         </button>
       </div>
+
+      {feedback && (
+        <p className="text-xs text-center text-emerald-500">{feedback}</p>
+      )}
 
       <div className="pt-3 border-t border-[var(--color-border)] flex flex-col gap-2">
         <label className="flex items-center gap-2 text-xs text-[var(--color-text-secondary)] cursor-pointer">
