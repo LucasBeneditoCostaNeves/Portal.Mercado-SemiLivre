@@ -3,6 +3,8 @@
 import type { PersonalDataFormState, PreferencesFormState, RegisterFormState } from '@/domain/auth/types'
 import { isAdult, isValidCpf, isValidEmail } from '@/domain/auth/validators'
 import { BR_STATES, GENDERS } from '@/constants/brazil'
+import { ApiError } from '@/lib/http-client'
+import { authService } from '@/services/auth.service'
 
 export async function registerWithEmail(
   _prevState: RegisterFormState,
@@ -34,8 +36,32 @@ export async function registerWithEmail(
     return { errors }
   }
 
-  // TODO: persistir usuário, redirecionar para próximo passo
-  return { success: true, message: `Conta criada para ${email}!` }
+  const profileId = process.env.USER_PROFILE_ID
+  if (!profileId) {
+    return { success: false, message: 'Configuração interna ausente. Contate o administrador.' }
+  }
+
+  try {
+    await authService.register({
+      name: firstName,
+      lastName,
+      email,
+      password,
+      status: true,
+      profileId,
+    })
+    return { success: true, message: 'Conta criada com sucesso! Faça login para continuar.' }
+  } catch (err) {
+    if (err instanceof ApiError) {
+      const isEmailTaken =
+        err.status === 409 ||
+        (err.status === 400 && err.message.toLowerCase().includes('email'))
+      if (isEmailTaken) {
+        return { errors: { email: ['Este e-mail já está cadastrado.'] } }
+      }
+    }
+    return { success: false, message: 'Erro inesperado. Tente novamente.' }
+  }
 }
 
 export async function savePersonalData(

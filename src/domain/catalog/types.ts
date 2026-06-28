@@ -9,6 +9,7 @@ export type Product = {
   rating: number;
   reviewCount: number;
   icon: string;
+  imageUrl: string;
   badge?: ProductBadge;
 };
 
