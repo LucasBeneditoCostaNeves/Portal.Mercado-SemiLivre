@@ -6,10 +6,19 @@ type SelectFieldProps = {
   children: React.ReactNode
 }
 
-export function SelectField({ id, name, label, error, children }: SelectFieldProps) {
+export function SelectField({
+  id,
+  name,
+  label,
+  error,
+  children,
+}: SelectFieldProps) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label htmlFor={id} className="text-sm text-[var(--color-text-secondary)]">
+      <label
+        htmlFor={id}
+        className="text-sm text-[var(--color-text-secondary)]"
+      >
         {label}
       </label>
       <select

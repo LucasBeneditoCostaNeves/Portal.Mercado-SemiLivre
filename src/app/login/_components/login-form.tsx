@@ -30,15 +30,21 @@ export function LoginForm() {
   return (
     <form action={formAction} noValidate className="flex flex-col gap-4">
       <div>
-        <h2 className="hidden lg:block text-3xl font-bold text-[var(--color-text-primary)]">Entrar na sua conta</h2>
-        <p className="hidden lg:block mt-1 text-[var(--color-text-secondary)]">Bem-vindo de volta ao Mercado Livre</p>
+        <h2 className="hidden lg:block text-3xl font-bold text-[var(--color-text-primary)]">
+          Entrar na sua conta
+        </h2>
+        <p className="hidden lg:block mt-1 text-[var(--color-text-secondary)]">
+          Bem-vindo de volta ao Mercado Livre
+        </p>
       </div>
 
       <GoogleButton />
 
       <div className="flex items-center gap-3">
         <hr className="flex-1 border-[var(--color-border)]" />
-        <span className="text-xs text-[var(--color-text-secondary)] whitespace-nowrap">ou entre com seu e-mail</span>
+        <span className="text-xs text-[var(--color-text-secondary)] whitespace-nowrap">
+          ou entre com seu e-mail
+        </span>
         <hr className="flex-1 border-[var(--color-border)]" />
       </div>
 
@@ -61,7 +67,10 @@ export function LoginForm() {
       />
 
       <div className="flex justify-end -mt-1">
-        <Link href="#" className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors">
+        <Link
+          href="#"
+          className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors"
+        >
           Esqueci minha senha
         </Link>
       </div>
@@ -77,7 +86,16 @@ export function LoginForm() {
         className="w-full flex items-center justify-center gap-2 py-3.5 bg-[var(--color-brand-dark)] hover:opacity-90 active:opacity-80 text-[var(--color-brand)] text-sm font-bold rounded-xl transition-opacity"
       >
         Entrar
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4" aria-hidden="true">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="w-4 h-4"
+          aria-hidden="true"
+        >
           <line x1="5" y1="12" x2="19" y2="12" />
           <polyline points="12 5 19 12 12 19" />
         </svg>
@@ -85,17 +103,31 @@ export function LoginForm() {
 
       <p className="text-center text-sm text-[var(--color-text-secondary)]">
         Não tem conta?{' '}
-        <Link href="/cadastro" className="text-[var(--color-brand-dark)] hover:underline font-medium">
+        <Link
+          href="/cadastro"
+          className="text-[var(--color-brand-dark)] hover:underline font-medium"
+        >
           Criar conta grátis
         </Link>
       </p>
 
       <div className="flex items-center justify-center gap-2 pt-2 border-t border-[var(--color-border)]">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-[var(--color-text-secondary)] shrink-0" aria-hidden="true">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="w-3.5 h-3.5 text-[var(--color-text-secondary)] shrink-0"
+          aria-hidden="true"
+        >
           <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
           <path d="M7 11V7a5 5 0 0 1 10 0v4" />
         </svg>
-        <span className="text-xs text-[var(--color-text-secondary)]">Conexão segura com criptografia SSL</span>
+        <span className="text-xs text-[var(--color-text-secondary)]">
+          Conexão segura com criptografia SSL
+        </span>
       </div>
     </form>
   )

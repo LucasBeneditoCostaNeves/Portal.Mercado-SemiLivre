@@ -4,7 +4,9 @@ type MobileMarketingBannerProps = {
   step?: number
 }
 
-export function MobileMarketingBanner({ step = 1 }: MobileMarketingBannerProps) {
+export function MobileMarketingBanner({
+  step = 1,
+}: MobileMarketingBannerProps) {
   return (
     <div className="bg-[#FFE600] px-6 pt-0 pb-8">
       <Image
@@ -21,9 +23,7 @@ export function MobileMarketingBanner({ step = 1 }: MobileMarketingBannerProps) 
           <h2 className="text-2xl font-bold text-[#1a1f6e] leading-snug mb-2 max-w-[270px]">
             Quase lá!
           </h2>
-          <p className="text-sm text-[#1a1f6e]">
-            Passo 3 de 3 — preferências
-          </p>
+          <p className="text-sm text-[#1a1f6e]">Passo 3 de 3 — preferências</p>
         </>
       ) : step === 2 ? (
         <>

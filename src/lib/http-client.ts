@@ -1,7 +1,7 @@
 export class ApiError extends Error {
   constructor(
     public readonly status: number,
-    message: string,
+    message: string
   ) {
     super(message)
     this.name = 'ApiError'
@@ -10,7 +10,7 @@ export class ApiError extends Error {
 
 export async function apiClient<T>(
   path: string,
-  options: RequestInit = {},
+  options: RequestInit = {}
 ): Promise<T> {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL
   const url = `${baseUrl}${path}`
