@@ -11,6 +11,13 @@ export type Product = {
   icon: string
   imageUrl: string
   badge?: ProductBadge
+  brand?: string
+}
+
+export type PaginatedProductsResponse = {
+  items: Product[]
+  total: number
+  hasMore: boolean
 }
 
 export type ProductVariationDetail = {
@@ -38,6 +45,32 @@ export type ProductDetail = {
   category: string
   seller: string
   variations: ProductVariationDetail[]
+}
+
+export type ReviewItem = {
+  id: string
+  rating: number
+  text?: string
+  photos: string[]
+  country?: string
+  createdAt: string
+}
+
+export type ReviewDistribution = Record<1 | 2 | 3 | 4 | 5, number>
+
+export type ReviewAggregate = {
+  rating: number
+  reviewCount: number
+  distribution: ReviewDistribution
+  photos: string[]
+  aiSummary?: string
+}
+
+export type ProductReviewsResponse = {
+  aggregate: ReviewAggregate
+  items: ReviewItem[]
+  total: number
+  hasMore: boolean
 }
 
 export type Department = {

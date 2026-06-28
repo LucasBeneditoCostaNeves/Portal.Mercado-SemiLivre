@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { getProductDetail } from '@/services/catalog.service'
@@ -7,10 +8,12 @@ import ProductInfo from './_components/product-info'
 import PriceBox from './_components/price-box'
 import ProductInfoCards from './_components/product-info-cards'
 import ProductSpecs from './_components/product-specs'
+import ProductReviewsSection from './_components/product-reviews-section'
 import Navbar from '../../_components/navbar'
 
 type Props = {
   params: Promise<{ id: string }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -23,8 +26,47 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function ProductDetailPage({ params }: Props) {
+function ReviewsSectionSkeleton() {
+  return (
+    <div className="flex flex-col gap-6 pt-6 border-t border-[var(--color-border)] animate-pulse">
+      <div className="h-6 w-48 bg-[var(--color-bg-secondary)] rounded" />
+      <div className="flex gap-10">
+        <div className="flex flex-col items-center gap-2 shrink-0">
+          <div className="h-12 w-16 bg-[var(--color-bg-secondary)] rounded" />
+          <div className="h-4 w-24 bg-[var(--color-bg-secondary)] rounded" />
+          <div className="h-3 w-20 bg-[var(--color-bg-secondary)] rounded" />
+        </div>
+        <div className="flex flex-col gap-2 flex-1">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className="flex items-center gap-2">
+              <div className="h-3 w-3 bg-[var(--color-bg-secondary)] rounded" />
+              <div className="h-2 flex-1 bg-[var(--color-bg-secondary)] rounded-full" />
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="flex flex-col gap-3">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <div
+            key={i}
+            className="flex flex-col gap-2 pb-4 border-b border-[var(--color-border)]"
+          >
+            <div className="h-3 w-24 bg-[var(--color-bg-secondary)] rounded" />
+            <div className="h-4 w-full bg-[var(--color-bg-secondary)] rounded" />
+            <div className="h-4 w-3/4 bg-[var(--color-bg-secondary)] rounded" />
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export default async function ProductDetailPage({
+  params,
+  searchParams,
+}: Props) {
   const { id } = await params
+  const resolvedSearchParams = await searchParams
 
   let product
   try {
@@ -66,6 +108,13 @@ export default async function ProductDetailPage({ params }: Props) {
         <ProductInfoCards warrantyInformation={product.warrantyInformation} />
 
         <ProductSpecs variations={product.variations} />
+
+        <Suspense fallback={<ReviewsSectionSkeleton />}>
+          <ProductReviewsSection
+            productId={id}
+            searchParams={resolvedSearchParams}
+          />
+        </Suspense>
       </main>
     </>
   )

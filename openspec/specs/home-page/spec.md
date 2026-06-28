@@ -16,7 +16,7 @@ A `Navbar` da home page SHALL renderizar o `ThemeToggle` no grupo de ações do 
 ---
 
 ### Requirement: Navbar renderizada no topo da home
-A página home SHALL renderizar uma Navbar fixa no topo com fundo `--color-brand` (`#FFE600`), contendo: logo à esquerda, barra de busca centralizada (full-width), ações de usuário à direita (Entrar → `/login`, Pedidos, Carrinho com badge) e `ThemeToggle`.
+A página home SHALL renderizar uma Navbar fixa no topo com fundo `--color-brand` (`#FFE600`), contendo: logo à esquerda, barra de busca centralizada (full-width) como `<form>` funcional com `action="/buscar"` e `method="GET"`, ações de usuário à direita (Entrar → `/login`, Pedidos, Carrinho com badge) e `ThemeToggle`. O `<input>` de busca SHALL ter `name="q"`, `required`, `role="search"` no form e `aria-label="Buscar produtos"`. Quando o usuário está na página `/buscar`, o input SHALL aparecer preenchido com o valor atual de `q`.
 
 #### Scenario: Logo leva para a home
 - **WHEN** o usuário clica no logo na Navbar
@@ -29,6 +29,22 @@ A página home SHALL renderizar uma Navbar fixa no topo com fundo `--color-brand
 #### Scenario: Barra de busca visível em mobile
 - **WHEN** a viewport tem menos de 1024px de largura
 - **THEN** a barra de busca ocupa a largura completa abaixo do logo e ações
+
+#### Scenario: Submissão da busca pelo Enter
+- **WHEN** o usuário digita um termo no input e pressiona Enter
+- **THEN** o sistema navega para `/buscar?q={termo}`
+
+#### Scenario: Submissão da busca pelo botão de lupa
+- **WHEN** o usuário digita um termo e clica no botão de lupa
+- **THEN** o sistema navega para `/buscar?q={termo}`
+
+#### Scenario: Input preenchido na página de busca
+- **WHEN** o usuário está em `/buscar?q=notebook`
+- **THEN** o input de busca da Navbar exibe "notebook" pré-preenchido
+
+#### Scenario: Funciona sem JavaScript
+- **WHEN** o JavaScript está desabilitado no browser
+- **THEN** o formulário ainda submete via GET nativo do browser para `/buscar?q={termo}`
 
 ---
 
@@ -55,7 +71,7 @@ A página SHALL renderizar um Hero Banner com fundo `--color-brand-dark` e borda
 ---
 
 ### Requirement: Seção de Departamentos com grid responsivo
-A página SHALL renderizar uma seção "Departamentos" com header (título + link "Ver todos") e um grid de 6 cards de categoria em desktop, cada um com ícone Tabler circular (#FFE600) e label.
+A página SHALL renderizar uma seção "Departamentos" com header (título + link "Ver todos") e um grid de 6 cards de categoria em desktop, cada um com ícone Tabler circular (#FFE600) e label. Cada card de departamento SHALL ser um `<Link>` navegando para `/c/{department.id}`, tornando os departamentos clicáveis e indexáveis.
 
 #### Scenario: Grid em desktop
 - **WHEN** a viewport tem 1024px ou mais
@@ -64,6 +80,14 @@ A página SHALL renderizar uma seção "Departamentos" com header (título + lin
 #### Scenario: Grid em mobile
 - **WHEN** a viewport tem menos de 640px
 - **THEN** as 6 categorias são exibidas em grid de 2 colunas (3 linhas)
+
+#### Scenario: Card de departamento navega para página de categoria
+- **WHEN** o usuário clica em um card de departamento (ex: "Laptops")
+- **THEN** o sistema navega para `/c/{department.id}` daquele departamento
+
+#### Scenario: Card é um link semântico
+- **WHEN** o HTML da página é inspecionado
+- **THEN** cada card de departamento é um elemento `<a>` (via Next.js `<Link>`), não um `<button>`
 
 ---
 
