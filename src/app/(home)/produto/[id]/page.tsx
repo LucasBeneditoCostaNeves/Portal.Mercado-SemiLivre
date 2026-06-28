@@ -2,6 +2,8 @@ import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { getProductDetail } from '@/services/catalog.service'
+import { checkFavorite } from '@/services/favorites.service'
+import { getSession } from '@/lib/session'
 import Breadcrumbs from './_components/breadcrumbs'
 import ProductGallery from './_components/product-gallery'
 import ProductInfo from './_components/product-info'
@@ -75,6 +77,11 @@ export default async function ProductDetailPage({
     notFound()
   }
 
+  const token = (await getSession()) ?? null
+  const favoriteStatus = token
+    ? await checkFavorite(token, id).catch(() => ({ isFavorite: false, favoriteId: null }))
+    : { isFavorite: false, favoriteId: null }
+
   return (
     <>
       <Navbar />
@@ -102,6 +109,9 @@ export default async function ProductDetailPage({
               installments={product.installments}
               freeShipping={product.freeShipping}
               variationId={product.variations[0]?.id ?? ''}
+              productId={id}
+              initialIsFavorite={favoriteStatus.isFavorite}
+              initialFavoriteId={favoriteStatus.favoriteId}
             />
           </div>
         </div>

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
+import { SessionProvider } from '@/contexts/session-context'
+import { getSession } from '@/lib/session'
 import './globals.css'
 
 const roboto = Roboto({
@@ -16,11 +18,13 @@ export const metadata: Metadata = {
 
 const themeScript = `(function(){try{var t=localStorage.getItem('theme');document.documentElement.classList.add(t==='light'?'light':'dark')}catch(e){document.documentElement.classList.add('dark')}})()`
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const token = (await getSession()) ?? null
+
   return (
     <html
       lang="pt-BR"
@@ -31,7 +35,9 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="min-h-full flex flex-col">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <SessionProvider token={token}>{children}</SessionProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

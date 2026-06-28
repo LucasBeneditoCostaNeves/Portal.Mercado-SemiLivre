@@ -42,5 +42,5 @@ export async function loginWithEmail(
     return { success: false, message: 'Erro inesperado. Tente novamente.' }
   }
 
-  redirect('/home')
+  redirect('/')
 }
