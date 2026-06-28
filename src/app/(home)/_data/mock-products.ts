@@ -11,6 +11,7 @@ export const mockProducts: Product[] = [
     reviewCount: 2341,
     icon: 'ti-device-mobile',
     badge: 'OFERTA',
+    imageUrl: '',
   },
   {
     id: 'p2',
@@ -22,6 +23,7 @@ export const mockProducts: Product[] = [
     reviewCount: 987,
     icon: 'ti-device-laptop',
     badge: 'NOVO',
+    imageUrl: '',
   },
   {
     id: 'p3',
@@ -33,6 +35,7 @@ export const mockProducts: Product[] = [
     reviewCount: 5102,
     icon: 'ti-headphones',
     badge: 'OFERTA',
+    imageUrl: '',
   },
   {
     id: 'p4',
@@ -44,5 +47,6 @@ export const mockProducts: Product[] = [
     reviewCount: 1450,
     icon: 'ti-device-tv',
     badge: 'NOVO',
+    imageUrl: '',
   },
 ]
