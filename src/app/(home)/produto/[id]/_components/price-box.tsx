@@ -3,9 +3,13 @@
 import { useState, useTransition } from 'react'
 import type { ProductDetail } from '@/domain/catalog/types'
 import { addToCart } from '@/app/(home)/carrinho/actions'
+import FavoriteButton from '@/app/(home)/_components/favorite-button'
 
 type Props = Pick<ProductDetail, 'price' | 'installments' | 'freeShipping'> & {
   variationId: string
+  productId: string
+  initialIsFavorite: boolean
+  initialFavoriteId: string | null
 }
 
 type DeliveryOption = 'envio' | 'retirar'
@@ -18,7 +22,15 @@ function formatPrice(price: number) {
   }
 }
 
-export default function PriceBox({ price, installments, freeShipping, variationId }: Props) {
+export default function PriceBox({
+  price,
+  installments,
+  freeShipping,
+  variationId,
+  productId,
+  initialIsFavorite,
+  initialFavoriteId,
+}: Props) {
   const [delivery, setDelivery] = useState<DeliveryOption>('envio')
   const [isPending, startTransition] = useTransition()
   const [feedback, setFeedback] = useState<string | null>(null)
@@ -38,12 +50,20 @@ export default function PriceBox({ price, installments, freeShipping, variationI
 
   return (
     <div className="border border-[var(--color-border)] rounded-xl p-4 flex flex-col gap-4 bg-[var(--color-surface-card)]">
-      <div>
-        <p className="text-3xl font-medium text-[var(--color-text-primary)] leading-none">
-          R$ {intPart}
-          <sup className="text-base font-normal">,{cents}</sup>
-        </p>
-        <p className="text-xs text-emerald-400 mt-1">{installments}</p>
+      <div className="flex items-start justify-between gap-2">
+        <div>
+          <p className="text-3xl font-medium text-[var(--color-text-primary)] leading-none">
+            R$ {intPart}
+            <sup className="text-base font-normal">,{cents}</sup>
+          </p>
+          <p className="text-xs text-emerald-400 mt-1">{installments}</p>
+        </div>
+        <FavoriteButton
+          productId={productId}
+          initialIsFavorite={initialIsFavorite}
+          initialFavoriteId={initialFavoriteId}
+          size="lg"
+        />
       </div>
 
       {freeShipping && (

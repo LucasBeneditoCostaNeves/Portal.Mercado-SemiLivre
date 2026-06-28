@@ -57,7 +57,14 @@ export default function Navbar() {
             <span className="text-[10px] whitespace-nowrap">Pedidos</span>
           </Link>
           <Link
-            href="#"
+            href="/favoritos"
+            className="flex flex-col items-center gap-0.5 text-[var(--color-brand-dark)] hover:opacity-75 transition-opacity"
+          >
+            <i className="ti ti-heart text-lg" aria-hidden="true" />
+            <span className="text-[10px] whitespace-nowrap">Favoritos</span>
+          </Link>
+          <Link
+            href="/carrinho"
             className="relative flex flex-col items-center gap-0.5 text-[var(--color-brand-dark)] hover:opacity-75 transition-opacity"
           >
             <i className="ti ti-shopping-cart text-lg" aria-hidden="true" />
