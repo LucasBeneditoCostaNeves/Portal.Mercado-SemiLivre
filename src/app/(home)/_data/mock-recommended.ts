@@ -10,6 +10,7 @@ export const mockRecommended: Product[] = [
     rating: 4.6,
     reviewCount: 1234,
     icon: 'ti-shoe',
+    imageUrl: '',
   },
   {
     id: 'r2',
@@ -21,6 +22,7 @@ export const mockRecommended: Product[] = [
     reviewCount: 678,
     icon: 'ti-ironing',
     badge: 'OFERTA',
+    imageUrl: '',
   },
   {
     id: 'r3',
@@ -32,6 +34,7 @@ export const mockRecommended: Product[] = [
     reviewCount: 312,
     icon: 'ti-camera',
     badge: 'NOVO',
+    imageUrl: '',
   },
   {
     id: 'r4',
@@ -42,5 +45,6 @@ export const mockRecommended: Product[] = [
     rating: 4.7,
     reviewCount: 203,
     icon: 'ti-bike',
+    imageUrl: '',
   },
 ]
