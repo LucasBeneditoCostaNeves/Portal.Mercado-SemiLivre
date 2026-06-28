@@ -1,10 +1,4 @@
-## Purpose
-
-Especifica o comportamento e a estrutura visual da página inicial (home) do Portal Mercado Semi-Livre, incluindo Navbar, Subnav, Hero Banner, seções de produtos e footer.
-
----
-
-## Requirements
+## ADDED Requirements
 
 ### Requirement: Navbar inclui ThemeToggle
 A `Navbar` da home page SHALL renderizar o `ThemeToggle` no grupo de ações do usuário, ao lado dos ícones de Pedidos e Carrinho, no canto direito.
@@ -14,6 +8,8 @@ A `Navbar` da home page SHALL renderizar o `ThemeToggle` no grupo de ações do 
 - **THEN** o `ThemeToggle` é exibido na Navbar ao lado das ações de usuário, visível em todas as viewports
 
 ---
+
+## MODIFIED Requirements
 
 ### Requirement: Navbar renderizada no topo da home
 A página home SHALL renderizar uma Navbar fixa no topo com fundo `--color-brand` (`#FFE600`), contendo: logo à esquerda, barra de busca centralizada (full-width), ações de usuário à direita (Entrar → `/login`, Pedidos, Carrinho com badge) e `ThemeToggle`.
@@ -54,47 +50,12 @@ A página SHALL renderizar um Hero Banner com fundo `--color-brand-dark` e borda
 
 ---
 
-### Requirement: Seção de Departamentos com grid responsivo
-A página SHALL renderizar uma seção "Departamentos" com header (título + link "Ver todos") e um grid de 6 cards de categoria em desktop, cada um com ícone Tabler circular (#FFE600) e label.
-
-#### Scenario: Grid em desktop
-- **WHEN** a viewport tem 1024px ou mais
-- **THEN** as 6 categorias são exibidas em grid de 6 colunas
-
-#### Scenario: Grid em mobile
-- **WHEN** a viewport tem menos de 640px
-- **THEN** as 6 categorias são exibidas em grid de 2 colunas (3 linhas)
-
----
-
-### Requirement: Seção Mais Vendidos com product cards
-A página SHALL renderizar uma seção "Mais vendidos" com 4 ProductCards em grid, usando dados mockados tipados com badge "OFERTA" ou "NOVO".
-
-#### Scenario: Grid em desktop
-- **WHEN** a viewport tem 1024px ou mais
-- **THEN** os 4 cards são exibidos em grid de 4 colunas
-
-#### Scenario: Grid em mobile
-- **WHEN** a viewport tem menos de 1024px
-- **THEN** os cards são exibidos em grid de 2 colunas
-
----
-
 ### Requirement: Faixa promocional com dois cards
 A página SHALL renderizar uma faixa com dois cards lado a lado: card com fundo `--color-brand` (Mercado Pago) e card com fundo `--color-brand-dark` (Entrega Full), cada um com ícones, título, descrição e botão CTA.
 
 #### Scenario: Layout responsivo
 - **WHEN** a viewport tem menos de 640px
 - **THEN** os dois cards são empilhados verticalmente (1 coluna)
-
----
-
-### Requirement: Seção Recomendados com product cards
-A página SHALL renderizar uma seção "Recomendados para você" com 4 ProductCards em grid usando dados mockados tipados, sem badge de destaque.
-
-#### Scenario: Grid consistente com Mais Vendidos
-- **WHEN** a página é renderizada
-- **THEN** o grid de Recomendados usa o mesmo layout responsivo da seção Mais Vendidos
 
 ---
 
@@ -121,12 +82,3 @@ Todos os elementos da home que não usam as cores de marca fixas (`--color-brand
 #### Scenario: Product cards adaptam ao tema
 - **WHEN** o tema muda de dark para light
 - **THEN** os `ProductCard`s atualizam fundo e texto conforme os tokens de tema, sem reload
-
----
-
-### Requirement: Página implementada como Server Component
-A `src/app/page.tsx` SHALL ser um Server Component (sem `"use client"`), composta de sub-componentes também Server Components sempre que possível.
-
-#### Scenario: Sem hidratação desnecessária
-- **WHEN** a página é carregada
-- **THEN** nenhum componente de apresentação estática dispara `"use client"` desnecessariamente

@@ -72,13 +72,13 @@ function Step2Content() {
         </p>
       </div>
 
-      <div className="flex gap-3 items-start bg-[#1a1f6e]/10 rounded-2xl p-4">
-        <div className="w-9 h-9 rounded-full bg-[#1a1f6e] flex items-center justify-center shrink-0 mt-0.5" aria-hidden="true">
+      <div className="flex gap-3 items-start bg-[var(--color-brand-dark)]/10 rounded-2xl p-4">
+        <div className="w-9 h-9 rounded-full bg-[var(--color-brand-dark)] flex items-center justify-center shrink-0 mt-0.5" aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
           </svg>
         </div>
-        <p className="text-sm text-[#1a1f6e] leading-relaxed">
+        <p className="text-sm text-[var(--color-brand-dark)] leading-relaxed">
           Seus dados são criptografados e nunca serão compartilhados com terceiros sem sua autorização.
         </p>
       </div>
@@ -110,7 +110,7 @@ function Step3Content() {
             <div
               className={[
                 'w-6 h-6 rounded-full flex items-center justify-center shrink-0',
-                done ? 'bg-[#1a1f6e]' : 'border-2 border-[#1a1f6e]',
+                done ? 'bg-[var(--color-brand-dark)]' : 'border-2 border-[var(--color-brand-dark)]',
               ].join(' ')}
               aria-hidden="true"
             >
@@ -120,7 +120,7 @@ function Step3Content() {
                 </svg>
               )}
             </div>
-            <span className={`text-sm font-medium ${done ? 'text-gray-800' : 'text-[#1a1f6e] font-semibold'}`}>
+            <span className={`text-sm font-medium ${done ? 'text-gray-800' : 'text-[var(--color-brand-dark)] font-semibold'}`}>
               {label}
             </span>
           </li>
@@ -129,4 +129,3 @@ function Step3Content() {
     </>
   )
 }
-

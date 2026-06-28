@@ -7,7 +7,7 @@ export function FeatureIcon({ size = 'md' }: FeatureIconProps) {
   const inner = size === 'sm' ? 'w-2.5 h-2.5' : 'w-3.5 h-3.5'
   return (
     <div
-      className={`${outer} rounded-full bg-[#1a1f6e] flex items-center justify-center shrink-0`}
+      className={`${outer} rounded-full bg-[var(--color-brand-dark)] flex items-center justify-center shrink-0`}
       aria-hidden="true"
     >
       <div className={`${inner} border-2 border-white rounded-sm`} />

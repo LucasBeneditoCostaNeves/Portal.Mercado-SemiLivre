@@ -16,7 +16,7 @@ export function PasswordField({ name, label, placeholder, autoComplete, error }:
 
   return (
     <div className="flex flex-col gap-1.5">
-      <label htmlFor={id} className="text-sm text-zinc-400">
+      <label htmlFor={id} className="text-sm text-[var(--color-text-secondary)]">
         {label}
       </label>
       <div className="relative">
@@ -28,13 +28,13 @@ export function PasswordField({ name, label, placeholder, autoComplete, error }:
           autoComplete={autoComplete}
           aria-describedby={error ? `${id}-error` : undefined}
           aria-invalid={!!error}
-          className="w-full px-4 py-3 pr-11 bg-zinc-800 border border-zinc-700 rounded-xl text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#FFE600] focus:border-transparent aria-[invalid=true]:border-red-500 aria-[invalid=true]:ring-red-500 transition"
+          className="w-full px-4 py-3 pr-11 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-brand)] focus:border-transparent aria-[invalid=true]:border-red-500 aria-[invalid=true]:ring-red-500 transition"
         />
         <button
           type="button"
           aria-label={visible ? 'Ocultar senha' : 'Mostrar senha'}
           onClick={() => setVisible((v) => !v)}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300 transition-colors"
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors"
         >
           {visible ? (
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4" aria-hidden="true">

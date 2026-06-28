@@ -8,7 +8,7 @@ function formatPrice(price: number) {
 }
 
 const badgeStyles: Record<NonNullable<Product["badge"]>, string> = {
-  OFERTA: "bg-[#FFE600] text-zinc-900",
+  OFERTA: "bg-[var(--color-brand)] text-zinc-900",
   NOVO: "bg-emerald-950 text-emerald-300",
 };
 
@@ -16,8 +16,8 @@ export default function ProductCard({ product }: { product: Product }) {
   const { intPart, cents } = formatPrice(product.price);
 
   return (
-    <article className="bg-zinc-800 border border-zinc-700 rounded-xl p-3 flex flex-col gap-2 hover:border-zinc-500 transition-colors">
-      <div className="relative w-full aspect-square bg-zinc-900 rounded-lg overflow-hidden mb-1">
+    <article className="bg-[var(--color-surface-card)] border border-[var(--color-border)] rounded-xl p-3 flex flex-col gap-2 hover:border-[var(--color-bg-elevated)] transition-colors">
+      <div className="relative w-full aspect-square bg-[var(--color-bg-secondary)] rounded-lg overflow-hidden mb-1">
         <Image
           src={product.imageUrl}
           alt={product.title}
@@ -33,9 +33,9 @@ export default function ProductCard({ product }: { product: Product }) {
         </span>
       )}
 
-      <p className="text-sm text-white leading-snug line-clamp-2">{product.title}</p>
+      <p className="text-sm text-[var(--color-text-primary)] leading-snug line-clamp-2">{product.title}</p>
 
-      <p className="text-lg font-medium text-white leading-none">
+      <p className="text-lg font-medium text-[var(--color-text-primary)] leading-none">
         R$ {intPart}
         <sup className="text-xs font-normal">,{cents}</sup>
       </p>
@@ -49,7 +49,7 @@ export default function ProductCard({ product }: { product: Product }) {
         </p>
       )}
 
-      <p className="text-xs text-zinc-500 flex items-center gap-1 mt-auto">
+      <p className="text-xs text-[var(--color-text-secondary)] flex items-center gap-1 mt-auto">
         <i className="ti ti-star text-xs" aria-hidden="true" />
         {product.rating} ({product.reviewCount.toLocaleString("pt-BR")})
       </p>

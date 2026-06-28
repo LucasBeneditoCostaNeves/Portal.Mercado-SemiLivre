@@ -16,7 +16,7 @@ const categories = [
 export default function Subnav() {
   return (
     <nav
-      className="bg-[#2D3277] px-4 lg:px-6 py-2 flex gap-6 overflow-x-auto scrollbar-none"
+      className="bg-[var(--color-brand-dark)] px-4 lg:px-6 py-2 flex gap-6 overflow-x-auto scrollbar-none"
       aria-label="Navegação de categorias"
     >
       {categories.map((cat) => (

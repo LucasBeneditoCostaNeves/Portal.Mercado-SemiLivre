@@ -16,7 +16,7 @@ export default async function Home() {
   ]);
 
   return (
-    <div className="flex flex-col min-h-full bg-zinc-900">
+    <div className="flex flex-col min-h-full bg-[var(--color-bg-primary)]">
       <Navbar />
       <Subnav />
 
