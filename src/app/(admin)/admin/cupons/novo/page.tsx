@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { CouponForm } from '@/app/(fornecedor)/cupons/_components/coupon-form'
+import { CouponForm } from '@/app/(fornecedor)/fornecedor/cupons/_components/coupon-form'
 import { createAdminCouponAction } from '../actions'
 
 export default function AdminNovoCupomPage() {
