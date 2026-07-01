@@ -10,6 +10,8 @@ const departmentImages: Record<string, string> = {
   Laptops: '/laptop.png',
   Smartphones: '/smartphone.png',
   'Sports-accessories': '/treino.png',
+  'Mobile-accessories': '/gadgets.avif',
+  'Mens-watches': '/relogio.webp',
 }
 
 export default function DepartmentsGrid({
@@ -27,7 +29,7 @@ export default function DepartmentsGrid({
             href={`/c/${dept.id}`}
             className="bg-[var(--color-surface-card)] border border-[var(--color-border)] rounded-xl px-2 py-3.5 flex flex-col items-center gap-2 hover:border-[var(--color-bg-elevated)] transition-colors"
           >
-            <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center bg-[var(--color-brand)]">
+            <div className={`w-10 h-10 rounded-full overflow-hidden flex items-center justify-center ${image ? '' : 'bg-[var(--color-brand)]'}`}>
               {image ? (
                 <Image
                   src={image}
