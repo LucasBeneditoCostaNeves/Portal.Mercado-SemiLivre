@@ -1,6 +1,10 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { Product } from '@/domain/catalog/types'
+import { recordProductClick } from '@/actions/history'
+import type { SourcePage } from '@/types/history'
 import FavoriteButton from './favorite-button'
 
 function formatPrice(price: number) {
@@ -16,19 +20,25 @@ const badgeStyles: Record<NonNullable<Product['badge']>, string> = {
 
 type Props = {
   product: Product
+  sourcePage?: SourcePage
   initialIsFavorite?: boolean
   initialFavoriteId?: string | null
 }
 
 export default function ProductCard({
   product,
+  sourcePage = 'home',
   initialIsFavorite = false,
   initialFavoriteId = null,
 }: Props) {
   const { intPart, cents } = formatPrice(product.price)
 
+  function handleClick() {
+    void recordProductClick(product.id, sourcePage)
+  }
+
   return (
-    <Link href={`/produto/${product.id}`} className="group block">
+    <Link href={`/produto/${product.id}`} className="group block" onClick={handleClick}>
       <article className="bg-[var(--color-surface-card)] border border-[var(--color-border)] rounded-xl p-3 flex flex-col gap-2 cursor-pointer transition-all group-hover:border-[var(--color-bg-elevated)] group-hover:shadow-lg group-hover:-translate-y-1">
         <div className="relative w-full aspect-square bg-[var(--color-bg-secondary)] rounded-lg overflow-hidden mb-1">
           <FavoriteButton
