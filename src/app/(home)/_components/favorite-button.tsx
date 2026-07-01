@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useSession } from '@/contexts/session-context'
-import { addFavorite, removeFavorite } from '@/services/favorites.service'
+import { addFavoriteAction, removeFavoriteAction } from '@/actions/favorites'
 
 type Size = 'sm' | 'md' | 'lg'
 
@@ -52,7 +52,7 @@ export default function FavoriteButton({
     if (isFavorite && favoriteId) {
       setIsFavorite(false)
       try {
-        await removeFavorite(token, favoriteId)
+        await removeFavoriteAction(favoriteId)
         setFavoriteId(null)
         router.refresh()
       } catch (err) {
@@ -62,7 +62,7 @@ export default function FavoriteButton({
     } else {
       setIsFavorite(true)
       try {
-        const { id } = await addFavorite(token, productId)
+        const { id } = await addFavoriteAction(productId)
         setFavoriteId(id)
         router.refresh()
       } catch (err) {
