@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
 import { SessionProvider } from '@/contexts/session-context'
+import { ToastProvider } from '@/components/toast-provider'
 import { getSession } from '@/lib/session'
 import './globals.css'
 
@@ -37,6 +38,7 @@ export default async function RootLayout({
       <body className="min-h-full flex flex-col">
         <ThemeProvider>
           <SessionProvider token={token}>{children}</SessionProvider>
+          <ToastProvider />
         </ThemeProvider>
       </body>
     </html>

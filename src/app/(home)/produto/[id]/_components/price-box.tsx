@@ -1,15 +1,13 @@
 'use client'
 
 import { useState, useTransition } from 'react'
+import { toast } from 'react-toastify'
 import type { ProductDetail } from '@/domain/catalog/types'
 import { addToCart } from '@/app/(home)/carrinho/actions'
-import FavoriteButton from '@/app/(home)/_components/favorite-button'
 
 type Props = Pick<ProductDetail, 'price' | 'installments' | 'freeShipping'> & {
   variationId: string
   productId: string
-  initialIsFavorite: boolean
-  initialFavoriteId: string | null
 }
 
 type DeliveryOption = 'envio' | 'retirar'
@@ -28,21 +26,17 @@ export default function PriceBox({
   freeShipping,
   variationId,
   productId,
-  initialIsFavorite,
-  initialFavoriteId,
 }: Props) {
   const [delivery, setDelivery] = useState<DeliveryOption>('envio')
   const [isPending, startTransition] = useTransition()
-  const [feedback, setFeedback] = useState<string | null>(null)
 
   function handleAddToCart() {
     startTransition(async () => {
       const result = await addToCart(variationId, 1)
       if (result?.error) {
-        setFeedback(result.error)
+        toast.error(result.error)
       } else {
-        setFeedback('Adicionado ao carrinho!')
-        setTimeout(() => setFeedback(null), 2000)
+        toast.success('Produto adicionado ao carrinho! 🛒')
       }
     })
   }
@@ -58,12 +52,6 @@ export default function PriceBox({
           </p>
           <p className="text-xs text-emerald-400 mt-1">{installments}</p>
         </div>
-        <FavoriteButton
-          productId={productId}
-          initialIsFavorite={initialIsFavorite}
-          initialFavoriteId={initialFavoriteId}
-          size="lg"
-        />
       </div>
 
       {freeShipping && (
@@ -90,11 +78,7 @@ export default function PriceBox({
         </button>
       </div>
 
-      {feedback && (
-        <p className="text-xs text-center text-emerald-500">{feedback}</p>
-      )}
-
-      <div className="pt-3 border-t border-[var(--color-border)] flex flex-col gap-2">
+      {/* <div className="pt-3 border-t border-[var(--color-border)] flex flex-col gap-2">
         <label className="flex items-center gap-2 text-xs text-[var(--color-text-secondary)] cursor-pointer">
           <input
             type="radio"
@@ -125,7 +109,7 @@ export default function PriceBox({
           />
           Retirar na loja
         </label>
-      </div>
+      </div> */}
     </div>
   )
 }

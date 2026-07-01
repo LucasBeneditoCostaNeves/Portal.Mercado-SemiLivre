@@ -1,9 +1,14 @@
 import type { ProductDetail } from '@/domain/catalog/types'
+import FavoriteButton from '../../../_components/favorite-button'
 
 type Props = Pick<
   ProductDetail,
   'title' | 'rating' | 'reviewCount' | 'seller' | 'badge' | 'description'
->
+> & {
+  productId: string
+  initialIsFavorite: boolean
+  initialFavoriteId: string | null
+}
 
 const badgeStyles = {
   OFERTA: 'bg-[#E6F1FB] text-[#378ADD]',
@@ -51,6 +56,9 @@ export default function ProductInfo({
   seller,
   badge,
   description,
+  productId,
+  initialIsFavorite,
+  initialFavoriteId,
 }: Props) {
   return (
     <div className="flex flex-col gap-4">
@@ -71,13 +79,12 @@ export default function ProductInfo({
           <p className="text-sm text-[var(--color-text-primary)]">{seller}</p>
         </div>
 
-        <button
-          className="flex items-center gap-1 text-sm text-[var(--color-text-secondary)] shrink-0"
-          aria-label="Adicionar aos favoritos"
-        >
-          <i className="ti ti-heart text-base" aria-hidden="true" />
-          <span className="hidden sm:inline">Favoritar</span>
-        </button>
+        <FavoriteButton
+          productId={productId}
+          initialIsFavorite={initialIsFavorite}
+          initialFavoriteId={initialFavoriteId}
+          size="lg"
+        />
       </div>
 
       {badge && (

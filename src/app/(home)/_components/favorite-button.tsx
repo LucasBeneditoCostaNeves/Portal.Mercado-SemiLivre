@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useSession } from '@/contexts/session-context'
 import { addFavoriteAction, removeFavoriteAction } from '@/actions/favorites'
@@ -36,6 +36,11 @@ export default function FavoriteButton({
   const [isFavorite, setIsFavorite] = useState(initialIsFavorite)
   const [favoriteId, setFavoriteId] = useState(initialFavoriteId)
   const [isPending, setIsPending] = useState(false)
+
+  useEffect(() => {
+    setIsFavorite(initialIsFavorite)
+    setFavoriteId(initialFavoriteId)
+  }, [initialIsFavorite, initialFavoriteId])
 
   async function handleClick(e: React.MouseEvent) {
     e.preventDefault()
