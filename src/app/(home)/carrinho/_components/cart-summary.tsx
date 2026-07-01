@@ -1,7 +1,10 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import type { CartItem } from '@/types/cart'
+import type { AppliedCoupon } from '@/types/coupon'
+import { CouponField } from '@/components/coupon-field'
 import { useCartSelection } from './cart-selection-context'
 
 function formatPrice(value: number) {
@@ -16,10 +19,18 @@ type Props = {
 }
 
 export function CartSummary({ items }: Props) {
+  const router = useRouter()
   const { selectedIds } = useCartSelection()
   const [cep, setCep] = useState('')
+  const [appliedCoupon, setAppliedCoupon] = useState<AppliedCoupon | null>(null)
 
   const selectedItems = items.filter((item) => selectedIds.has(item.id))
+  const selectedIds_arr = selectedItems.map((item) => item.id)
+
+  function handleContinue() {
+    if (selectedIds_arr.length === 0) return
+    router.push(`/checkout/endereco?itens=${selectedIds_arr.join(',')}`)
+  }
 
   const totalQty = selectedItems.reduce((acc, item) => acc + item.quantity, 0)
 
@@ -32,6 +43,8 @@ export function CartSummary({ items }: Props) {
 
   const allFreeShipping =
     selectedItems.length > 0 && selectedItems.every((item) => item.freeShipping)
+
+  const total = subtotal - (appliedCoupon?.discountAmount ?? 0)
 
   return (
     <div className="flex flex-col gap-3 sticky top-4">
@@ -61,12 +74,29 @@ export function CartSummary({ items }: Props) {
               {allFreeShipping ? 'Grátis' : 'A calcular'}
             </span>
           </div>
+          {appliedCoupon && (
+            <div className="flex justify-between">
+              <span className="text-[var(--color-text-secondary)]">
+                Cupom ({appliedCoupon.code})
+              </span>
+              <span className="text-emerald-600 font-medium">
+                − R$ {formatPrice(appliedCoupon.discountAmount)}
+              </span>
+            </div>
+          )}
         </div>
+
+        <CouponField
+          cartItemIds={selectedIds_arr}
+          appliedCoupon={appliedCoupon}
+          onApply={setAppliedCoupon}
+          onRemove={() => setAppliedCoupon(null)}
+        />
 
         <div className="border-t border-[var(--color-border)] pt-4 flex justify-between items-center">
           <span className="text-base font-bold text-[var(--color-text-primary)]">Total</span>
           <span className="text-base font-bold text-[var(--color-text-primary)]">
-            R$ {formatPrice(subtotal)}
+            R$ {formatPrice(total)}
           </span>
         </div>
 
@@ -94,6 +124,7 @@ export function CartSummary({ items }: Props) {
 
         <button
           type="button"
+          onClick={handleContinue}
           disabled={selectedItems.length === 0}
           className="w-full py-3.5 rounded-xl bg-[#FFE600] text-[#333] font-bold text-sm hover:bg-[#f0d800] transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >

@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import Navbar from './(home)/_components/navbar'
 import Subnav from './(home)/_components/subnav'
 import HeroBanner from './(home)/_components/hero-banner'
@@ -11,18 +13,24 @@ import {
   getDepartments,
   getRecommended,
 } from '@/services/catalog.service'
+import { getFavoritesMap } from '@/services/favorites.service'
+import { getSession } from '@/lib/session'
 
 export default async function Home() {
-  const [bestsellers, recommended, departments] = await Promise.all([
-    getBestsellers(100),
-    getRecommended(100),
-    getDepartments(),
-  ])
+  const token = (await getSession()) ?? null
+
+  const [bestsellers, recommended, departments, favoritesMap] =
+    await Promise.all([
+      getBestsellers(100),
+      getRecommended(100),
+      getDepartments(),
+      token ? getFavoritesMap(token) : Promise.resolve({}),
+    ])
 
   return (
     <div className="flex flex-col min-h-full bg-[var(--color-bg-primary)]">
       <Navbar />
-      <Subnav />
+      {/* <Subnav /> */}
 
       <main className="flex-1 flex flex-col gap-5 px-6 lg:px-4 py-5 max-w-[1200px] mx-auto w-full">
         <HeroBanner />
@@ -36,6 +44,7 @@ export default async function Home() {
           title="Mais vendidos"
           products={bestsellers}
           href="#"
+          favoritesMap={favoritesMap}
         />
 
         <PromoRow />
@@ -45,6 +54,7 @@ export default async function Home() {
           products={recommended}
           href="#"
           linkLabel="Ver mais"
+          favoritesMap={favoritesMap}
         />
       </main>
 

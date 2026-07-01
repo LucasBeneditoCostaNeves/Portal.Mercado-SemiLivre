@@ -14,6 +14,7 @@ type Props = {
   initialHasMore: boolean
   query: string
   filters: SearchParams
+  favoritesMap?: Record<string, string>
 }
 
 function buildQueryString(query: string, params: SearchParams): string {
@@ -38,6 +39,7 @@ export default function SearchResultsClient({
   initialHasMore,
   query,
   filters,
+  favoritesMap = {},
 }: Props) {
   const [items, setItems] = useState<Product[]>(initialItems)
   const [hasMore, setHasMore] = useState(initialHasMore)
@@ -86,7 +88,13 @@ export default function SearchResultsClient({
         aria-label="Resultados da pesquisa"
       >
         {items.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard
+                key={product.id}
+                product={product}
+                sourcePage="search"
+                initialIsFavorite={product.id in favoritesMap}
+                initialFavoriteId={favoritesMap[product.id] ?? null}
+              />
         ))}
       </div>
 

@@ -15,7 +15,27 @@ export default async function CartPage() {
     redirect('/login')
   }
 
-  const cart = await getCart(token)
+  let cart: Awaited<ReturnType<typeof getCart>>
+  try {
+    cart = await getCart(token)
+  } catch {
+    return (
+      <>
+        <Navbar />
+        <div className="min-h-screen bg-[var(--color-bg-secondary)] flex items-center justify-center">
+          <div className="flex flex-col items-center gap-4 text-center p-8 bg-white rounded-xl border border-[var(--color-border)]">
+            <i className="ti ti-wifi-off text-5xl text-[var(--color-text-tertiary)]" aria-hidden="true" />
+            <p className="text-[var(--color-text-secondary)] text-sm">
+              Não foi possível carregar o carrinho. Tente novamente mais tarde.
+            </p>
+            <Link href="/" className="text-sm font-medium text-[#2D3277] hover:underline">
+              Voltar para a loja
+            </Link>
+          </div>
+        </div>
+      </>
+    )
+  }
 
   const sellerGroups = cart.items.reduce<Record<string, { sellerId: string; items: typeof cart.items }>>(
     (acc, item) => {

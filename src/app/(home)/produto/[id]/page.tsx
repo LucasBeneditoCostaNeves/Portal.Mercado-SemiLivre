@@ -79,7 +79,10 @@ export default async function ProductDetailPage({
 
   const token = (await getSession()) ?? null
   const favoriteStatus = token
-    ? await checkFavorite(token, id).catch(() => ({ isFavorite: false, favoriteId: null }))
+    ? await checkFavorite(token, id).catch(() => ({
+        isFavorite: false,
+        favoriteId: null,
+      }))
     : { isFavorite: false, favoriteId: null }
 
   return (
@@ -103,6 +106,9 @@ export default async function ProductDetailPage({
               seller={product.seller}
               badge={product.badge}
               description={product.description}
+              productId={id}
+              initialIsFavorite={favoriteStatus.isFavorite}
+              initialFavoriteId={favoriteStatus.favoriteId}
             />
             <PriceBox
               price={product.price}
@@ -110,8 +116,6 @@ export default async function ProductDetailPage({
               freeShipping={product.freeShipping}
               variationId={product.variations[0]?.id ?? ''}
               productId={id}
-              initialIsFavorite={favoriteStatus.isFavorite}
-              initialFavoriteId={favoriteStatus.favoriteId}
             />
           </div>
         </div>

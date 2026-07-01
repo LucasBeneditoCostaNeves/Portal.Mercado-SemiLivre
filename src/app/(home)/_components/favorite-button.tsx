@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useSession } from '@/contexts/session-context'
-import { addFavorite, removeFavorite } from '@/services/favorites.service'
+import { addFavoriteAction, removeFavoriteAction } from '@/actions/favorites'
 
 type Size = 'sm' | 'md' | 'lg'
 
@@ -15,11 +15,14 @@ type Props = {
   className?: string
 }
 
-const sizeMap: Record<Size, string> = {
-  sm: 'text-base',
-  md: 'text-xl',
-  lg: 'text-2xl',
+const sizeMap: Record<Size, { width: number; height: number }> = {
+  sm: { width: 16, height: 15 },
+  md: { width: 22, height: 21 },
+  lg: { width: 28, height: 27 },
 }
+
+const HEART_PATH =
+  'M140 20C73 20 20 74 20 140c0 135 136 170 228 303 88-132 229-173 229-303 0-66-54-120-120-120-48 0-90 28-109 69-19-41-60-69-108-69z'
 
 export default function FavoriteButton({
   productId,
@@ -33,6 +36,11 @@ export default function FavoriteButton({
   const [isFavorite, setIsFavorite] = useState(initialIsFavorite)
   const [favoriteId, setFavoriteId] = useState(initialFavoriteId)
   const [isPending, setIsPending] = useState(false)
+
+  useEffect(() => {
+    setIsFavorite(initialIsFavorite)
+    setFavoriteId(initialFavoriteId)
+  }, [initialIsFavorite, initialFavoriteId])
 
   async function handleClick(e: React.MouseEvent) {
     e.preventDefault()
@@ -49,7 +57,7 @@ export default function FavoriteButton({
     if (isFavorite && favoriteId) {
       setIsFavorite(false)
       try {
-        await removeFavorite(token, favoriteId)
+        await removeFavoriteAction(favoriteId)
         setFavoriteId(null)
         router.refresh()
       } catch (err) {
@@ -59,7 +67,7 @@ export default function FavoriteButton({
     } else {
       setIsFavorite(true)
       try {
-        const { id } = await addFavorite(token, productId)
+        const { id } = await addFavoriteAction(productId)
         setFavoriteId(id)
         router.refresh()
       } catch (err) {
@@ -71,22 +79,33 @@ export default function FavoriteButton({
     setIsPending(false)
   }
 
+  const { width, height } = sizeMap[size]
+
   return (
     <button
       type="button"
       onClick={handleClick}
       disabled={isPending}
       aria-label={isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
-      className={`flex items-center justify-center transition-colors disabled:opacity-50 ${className}`}
+      className={`flex items-center justify-center disabled:opacity-50 ${className}`}
     >
-      <i
-        className={`${sizeMap[size]} ${
-          isFavorite
-            ? 'ti ti-heart-filled text-red-500'
-            : 'ti ti-heart text-[var(--color-text-tertiary)] hover:text-red-400'
-        }`}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 497 470"
+        width={width}
+        height={height}
         aria-hidden="true"
-      />
+        style={{ transition: 'transform 0.15s ease' }}
+        className={isFavorite ? 'scale-110' : 'scale-100 hover:scale-105'}
+      >
+        <path
+          d={HEART_PATH}
+          stroke="red"
+          strokeWidth="20"
+          style={{ transition: 'fill 0.25s ease' }}
+          fill={isFavorite ? 'red' : 'none'}
+        />
+      </svg>
     </button>
   )
 }

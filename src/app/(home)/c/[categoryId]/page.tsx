@@ -4,6 +4,8 @@ import {
   getDepartments,
   getProductsByCategory,
 } from '@/services/catalog.service'
+import { getFavoritesMap } from '@/services/favorites.service'
+import { getSession } from '@/lib/session'
 import type { CategoryPageSearchParams } from '@/types/category'
 import Navbar from '../../_components/navbar'
 import CategoryHeader from './_components/category-header'
@@ -53,10 +55,12 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   const department = departments.find((d) => d.id === categoryId)
   if (!department) notFound()
 
-  const products = await getProductsByCategory(department.label, {
-    limit: 20,
-    ...categoryParams,
-  })
+  const token = (await getSession()) ?? null
+
+  const [products, favoritesMap] = await Promise.all([
+    getProductsByCategory(department.label, { limit: 20, ...categoryParams }),
+    token ? getFavoritesMap(token) : Promise.resolve({}),
+  ])
 
   return (
     <>
@@ -69,6 +73,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
           initialHasMore={products.hasMore}
           categoryLabel={department.label}
           searchParams={categoryParams}
+          favoritesMap={favoritesMap}
         />
       </main>
     </>

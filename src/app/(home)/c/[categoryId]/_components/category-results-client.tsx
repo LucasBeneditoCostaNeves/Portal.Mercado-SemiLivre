@@ -22,6 +22,7 @@ type Props = {
   initialHasMore: boolean
   categoryLabel: string
   searchParams: CategoryPageSearchParams
+  favoritesMap?: Record<string, string>
 }
 
 function buildProductsUrl(
@@ -50,6 +51,7 @@ export default function CategoryResultsClient({
   initialHasMore,
   categoryLabel,
   searchParams,
+  favoritesMap = {},
 }: Props) {
   const [items, setItems] = useState<Product[]>(initialItems)
   const [hasMore, setHasMore] = useState(initialHasMore)
@@ -117,7 +119,13 @@ export default function CategoryResultsClient({
           <>
             <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
               {items.map((product) => (
-                <ProductCard key={product.id} product={product} />
+                <ProductCard
+                    key={product.id}
+                    product={product}
+                    sourcePage="category"
+                    initialIsFavorite={product.id in favoritesMap}
+                    initialFavoriteId={favoritesMap[product.id] ?? null}
+                  />
               ))}
               {isLoadingMore &&
                 Array.from({ length: 4 }).map((_, i) => (
