@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { LoginMarketingPanel } from './_components/login-marketing-panel'
 import { LoginForm } from './_components/login-form'
+import { LoginMobileBanner } from './_components/login-mobile-banner'
 
 export const metadata: Metadata = {
   title: 'Entrar | Mercado Livre',
@@ -14,6 +15,8 @@ export default function LoginPage() {
       <aside className="hidden lg:flex lg:w-1/2 bg-[var(--color-brand)]">
         <LoginMarketingPanel />
       </aside>
+
+      <LoginMobileBanner />
 
       <main className="flex-1 bg-[var(--color-bg-primary)] rounded-t-3xl lg:rounded-none flex items-center justify-center relative">
         <div className="absolute top-4 right-4">
