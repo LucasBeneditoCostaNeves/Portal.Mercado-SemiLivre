@@ -30,3 +30,9 @@ export async function removeFavorite(token: string, favoriteId: string): Promise
     method: 'DELETE',
   })
 }
+
+export async function getFavoritesMap(token: string): Promise<Record<string, string>> {
+  const data = await getFavorites(token, 1, 500).catch(() => null)
+  if (!data) return {}
+  return Object.fromEntries(data.items.map((item) => [item.productId, item.favoriteId]))
+}

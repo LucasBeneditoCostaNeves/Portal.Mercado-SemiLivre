@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import Navbar from './(home)/_components/navbar'
 import Subnav from './(home)/_components/subnav'
 import HeroBanner from './(home)/_components/hero-banner'
@@ -11,12 +13,17 @@ import {
   getDepartments,
   getRecommended,
 } from '@/services/catalog.service'
+import { getFavoritesMap } from '@/services/favorites.service'
+import { getSession } from '@/lib/session'
 
 export default async function Home() {
-  const [bestsellers, recommended, departments] = await Promise.all([
+  const token = (await getSession()) ?? null
+
+  const [bestsellers, recommended, departments, favoritesMap] = await Promise.all([
     getBestsellers(100),
     getRecommended(100),
     getDepartments(),
+    token ? getFavoritesMap(token) : Promise.resolve({}),
   ])
 
   return (
@@ -36,6 +43,7 @@ export default async function Home() {
           title="Mais vendidos"
           products={bestsellers}
           href="#"
+          favoritesMap={favoritesMap}
         />
 
         <PromoRow />
@@ -45,6 +53,7 @@ export default async function Home() {
           products={recommended}
           href="#"
           linkLabel="Ver mais"
+          favoritesMap={favoritesMap}
         />
       </main>
 

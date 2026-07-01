@@ -35,3 +35,11 @@ body {
   --color-border: #d4d4d8;
   --color-surface-card: #ffffff;
 }
+
+/* ── Navbar logo: telas muito pequenas ── */
+@media (max-width: 395px) {
+  .navbar-logo {
+    width: 90px;
+    height: 90px;
+  }
+}
