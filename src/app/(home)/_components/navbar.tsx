@@ -4,6 +4,7 @@ import { Suspense } from 'react'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { decodeJwt } from '@/lib/jwt'
 import { getSession } from '@/lib/session'
+import { getCart } from '@/services/cart.service'
 import { fetchSearchHistory } from '@/services/history.service'
 import { SearchForm } from './search-form'
 
@@ -26,6 +27,25 @@ async function SearchFormWithHistory() {
   return <SearchForm searchHistory={searchHistory} />
 }
 
+async function CartBadge() {
+  const token = await getSession()
+  if (!token) return null
+
+  try {
+    const cart = await getCart(token)
+    const total = cart.items.reduce((sum, item) => sum + item.quantity, 0)
+    if (total === 0) return null
+
+    return (
+      <span className="absolute -top-1.5 -right-2 bg-[var(--color-brand-dark)] text-[var(--color-brand)] text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center leading-none">
+        {total > 99 ? '99+' : total}
+      </span>
+    )
+  } catch {
+    return null
+  }
+}
+
 const navLinkClass =
   'flex flex-col items-center gap-0.5 text-[var(--color-brand-dark)] px-2 py-1 rounded-lg hover:bg-black/10 transition-colors'
 
@@ -36,7 +56,9 @@ async function UserButton() {
     return (
       <Link href="/login" className={navLinkClass}>
         <i className="ti ti-user text-xl" aria-hidden="true" />
-        <span className="text-[11px] font-medium whitespace-nowrap">Entrar</span>
+        <span className="text-[11px] font-medium whitespace-nowrap">
+          Entrar
+        </span>
       </Link>
     )
   }
@@ -106,14 +128,12 @@ export default async function Navbar() {
                 height={25}
                 aria-hidden="true"
               />
-              <span className="absolute -top-1.5 -right-2 bg-[var(--color-brand-dark)] text-[var(--color-brand)] text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center leading-none">
-                3
-              </span>
+              <CartBadge />
             </span>
           </Link>
-          <div className="ml-1">
+          {/* <div className="ml-1">
             <ThemeToggle />
-          </div>
+          </div> */}
         </nav>
 
         <div className="w-full order-3 lg:order-2 lg:w-auto lg:flex-1">
