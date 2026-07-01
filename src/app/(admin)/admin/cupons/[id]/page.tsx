@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getSession } from '@/lib/session'
 import { listCoupons } from '@/services/coupon.service'
-import { CouponForm } from '@/app/(fornecedor)/cupons/_components/coupon-form'
+import { CouponForm } from '@/app/(fornecedor)/fornecedor/cupons/_components/coupon-form'
 import { updateAdminCouponAction, deactivateAdminCouponAction } from '../actions'
 
 type Props = {
