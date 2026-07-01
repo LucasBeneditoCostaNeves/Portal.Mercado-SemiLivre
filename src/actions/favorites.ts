@@ -20,6 +20,8 @@ export async function removeFavoriteAction(favoriteId: string): Promise<void> {
   const token = await getSession()
   if (!token) throw new Error('Unauthenticated')
 
+  console.log('[removeFavoriteAction] favoriteId:', favoriteId)
+
   return apiClient<void>(`/favorites/${favoriteId}`, {
     method: 'DELETE',
     headers: { Authorization: `Bearer ${token}` },
